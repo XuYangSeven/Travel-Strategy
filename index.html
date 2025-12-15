@@ -3024,6 +3024,57 @@
 
     // 页面加载完成后初始化
     document.addEventListener('DOMContentLoaded', function() {
+      // 初始化高铁时间图表
+      const ctx = document.getElementById('travelTimeChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['东莞', '惠州', '中山', '汕尾', '佛山', '珠海', '河源', '清远', '肇庆', '云浮'],
+            datasets: [{
+              label: '高铁时间 (分钟)',
+              data: [15, 30, 35, 45, 50, 60, 50, 57, 75, 90],
+              backgroundColor: [
+                '#3b82f6', '#10b981', '#eab308', '#ef4444', '#8b5cf6',
+                '#06b6d4', '#84cc16', '#f59e0b', '#ec4899', '#6366f1'
+              ],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: '时间 (分钟)'
+                }
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: '城市'
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return context.label + ': ' + context.parsed.y + ' 分钟';
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+      
       // 添加页面滚动动画
       const animateOnScroll = function() {
         const elements = document.querySelectorAll('.card-hover');
