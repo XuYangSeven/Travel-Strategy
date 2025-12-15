@@ -1,0 +1,3049 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深圳周边高铁2小时直达旅游攻略</title>
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  <!-- 统一的 Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6', // 蓝色
+            secondary: '#f97316', // 橙色
+            accent: '#10b981', // 绿色
+            dark: '#1e293b',
+            light: '#f8fafc'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out',
+            'slide-down': 'slideDown 0.3s ease-out',
+            'slide-up': 'slideUp 0.3s ease-out',
+            'pulse-slow': 'pulse 3s infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideDown: {
+              '0%': { transform: 'translateY(-10px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(10px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+          },
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+      }
+      .glass-effect {
+        @apply bg-white bg-opacity-20 backdrop-blur-lg;
+      }
+      .gradient-overlay {
+        background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+      }
+      .route-line {
+        @apply absolute left-4 top-0 bottom-0 w-0.5 bg-primary;
+      }
+      .route-dot {
+        @apply absolute left-4 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center transform -translate-x-1/2 z-10;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <!-- 页面头部 -->
+  <header class="relative h-[60vh] min-h-[500px] overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1856508667504099342~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=RZugLNfOQZukrH%2BpY308WANMusw%3D" 
+           alt="深圳海景" 
+           class="w-full h-full object-cover">
+      <div class="absolute inset-0 gradient-overlay"></div>
+    </div>
+    <div class="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6 text-shadow animate-fade-in">深圳周边高铁2小时直达旅游攻略</h1>
+      <p class="text-xl md:text-2xl max-w-3xl text-shadow animate-slide-up mb-8">
+        精选高铁2小时内可达的城市，为您提供详细的行程规划、交通方案、美食推荐和费用预算
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 animate-slide-up">
+        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-6 py-3 flex items-center">
+          <i class="fa fa-train mr-2 text-secondary"></i>
+          <span>2小时内直达</span>
+        </div>
+        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-6 py-3 flex items-center">
+          <i class="fa fa-map-marker mr-2 text-secondary"></i>
+          <span>10+热门城市</span>
+        </div>
+        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-6 py-3 flex items-center">
+          <i class="fa fa-calendar-check-o mr-2 text-secondary"></i>
+          <span>完整行程规划</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要内容 -->
+  <main class="container mx-auto px-4 py-12">
+    <!-- 攻略介绍 -->
+    <section class="mb-16 text-center">
+      <h2 class="text-3xl font-bold mb-6 text-dark">高铁2小时直达城市攻略</h2>
+      <p class="text-gray-600 max-w-3xl mx-auto">
+        从深圳出发，高铁2小时内可到达多个城市。我们精选了最受欢迎的目的地，为您提供详细的行程规划、
+        交通方案、美食推荐和费用预算，让您的周末或小长假出行更加便捷、丰富。
+      </p>
+    </section>
+
+    <!-- 高铁城市概览 -->
+    <section class="mb-16">
+      <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="p-6">
+          <h3 class="text-2xl font-bold mb-6 text-dark">深圳周边高铁可达城市概览</h3>
+          
+          <!-- 高铁时间图表 -->
+          <div class="mb-8">
+            <canvas id="travelTimeChart" height="300"></canvas>
+          </div>
+          
+          <!-- 城市卡片 -->
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <!-- 东莞 -->
+            <div class="bg-blue-50 rounded-lg p-4 text-center cursor-pointer hover:bg-blue-100 transition-colors" onclick="showCityDetails('dongguan')">
+              <div class="text-primary text-3xl mb-2">
+                <i class="fa fa-building"></i>
+              </div>
+              <h4 class="font-bold">东莞</h4>
+              <p class="text-sm text-gray-600">15分钟</p>
+            </div>
+            
+            <!-- 惠州 -->
+            <div class="bg-green-50 rounded-lg p-4 text-center cursor-pointer hover:bg-green-100 transition-colors" onclick="showCityDetails('huizhou')">
+              <div class="text-green-600 text-3xl mb-2">
+                <i class="fa fa-tree"></i>
+              </div>
+              <h4 class="font-bold">惠州</h4>
+              <p class="text-sm text-gray-600">30分钟</p>
+            </div>
+            
+            <!-- 中山 -->
+            <div class="bg-yellow-50 rounded-lg p-4 text-center cursor-pointer hover:bg-yellow-100 transition-colors" onclick="showCityDetails('zhongshan')">
+              <div class="text-yellow-600 text-3xl mb-2">
+                <i class="fa fa-flower"></i>
+              </div>
+              <h4 class="font-bold">中山</h4>
+              <p class="text-sm text-gray-600">35分钟</p>
+            </div>
+            
+            <!-- 汕尾 -->
+            <div class="bg-red-50 rounded-lg p-4 text-center cursor-pointer hover:bg-red-100 transition-colors" onclick="showCityDetails('shanwei')">
+              <div class="text-red-600 text-3xl mb-2">
+                <i class="fa fa-anchor"></i>
+              </div>
+              <h4 class="font-bold">汕尾</h4>
+              <p class="text-sm text-gray-600">45分钟</p>
+            </div>
+            
+            <!-- 佛山 -->
+            <div class="bg-purple-50 rounded-lg p-4 text-center cursor-pointer hover:bg-purple-100 transition-colors" onclick="showCityDetails('foshan')">
+              <div class="text-purple-600 text-3xl mb-2">
+                <i class="fa fa-pagoda"></i>
+              </div>
+              <h4 class="font-bold">佛山</h4>
+              <p class="text-sm text-gray-600">50分钟</p>
+            </div>
+            
+            <!-- 珠海 -->
+            <div class="bg-cyan-50 rounded-lg p-4 text-center cursor-pointer hover:bg-cyan-100 transition-colors" onclick="showCityDetails('zhuhai')">
+              <div class="text-cyan-600 text-3xl mb-2">
+                <i class="fa fa-ship"></i>
+              </div>
+              <h4 class="font-bold">珠海</h4>
+              <p class="text-sm text-gray-600">60分钟</p>
+            </div>
+            
+            <!-- 河源 -->
+            <div class="bg-lime-50 rounded-lg p-4 text-center cursor-pointer hover:bg-lime-100 transition-colors" onclick="showCityDetails('heyuan')">
+              <div class="text-lime-600 text-3xl mb-2">
+                <i class="fa fa-mountain"></i>
+              </div>
+              <h4 class="font-bold">河源</h4>
+              <p class="text-sm text-gray-600">50分钟</p>
+            </div>
+            
+            <!-- 清远 -->
+            <div class="bg-amber-50 rounded-lg p-4 text-center cursor-pointer hover:bg-amber-100 transition-colors" onclick="showCityDetails('qingyuan')">
+              <div class="text-amber-600 text-3xl mb-2">
+                <i class="fa fa-water"></i>
+              </div>
+              <h4 class="font-bold">清远</h4>
+              <p class="text-sm text-gray-600">57分钟</p>
+            </div>
+            
+            <!-- 肇庆 -->
+            <div class="bg-indigo-50 rounded-lg p-4 text-center cursor-pointer hover:bg-indigo-100 transition-colors" onclick="showCityDetails('zhaoqing')">
+              <div class="text-indigo-600 text-3xl mb-2">
+                <i class="fa fa-monument"></i>
+              </div>
+              <h4 class="font-bold">肇庆</h4>
+              <p class="text-sm text-gray-600">73分钟</p>
+            </div>
+            
+            <!-- 汕头 -->
+            <div class="bg-rose-50 rounded-lg p-4 text-center cursor-pointer hover:bg-rose-100 transition-colors" onclick="showCityDetails('shantou')">
+              <div class="text-rose-600 text-3xl mb-2">
+                <i class="fa fa-fish"></i>
+              </div>
+              <h4 class="font-bold">汕头</h4>
+              <p class="text-sm text-gray-600">109分钟</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 城市详细攻略 -->
+    <section id="city-details" class="mb-16"></section>
+
+    <!-- 东莞攻略 -->
+    <div id="dongguan-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="relative h-64 overflow-hidden">
+        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+             alt="东莞风光" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 class="text-3xl font-bold mb-2">东莞 · 15分钟直达</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">岭南文化</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">水乡风情</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">工业旅游</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <!-- 高铁信息 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-train mr-2 text-primary"></i>
+            高铁信息
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">出发站</p>
+              <p class="font-semibold">深圳北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">到达站</p>
+              <p class="font-semibold">东莞南站/东莞站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">票价</p>
+              <p class="font-semibold">约30元</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <h4 class="font-bold text-xl mb-4">2日游详细行程</h4>
+        
+        <!-- 第一天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+            第一天：东莞市区与历史文化
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 林则徐销烟池与虎门炮台</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-car mr-1 text-primary"></i>
+                    东莞站打车约30分钟
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约50元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                林则徐销烟池与虎门炮台是中国近代史上的重要历史遗迹，记录了中国人民反抗外国侵略的英勇斗争。参观这些历史遗迹，了解中国近代历史。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 虎门镇午餐</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>虎门老字号烧鹅店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约60元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约10分钟</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                在虎门镇的老字号烧鹅店享用午餐，品尝正宗的东莞烧鹅，这是东莞的传统名菜，以其皮脆肉嫩而闻名。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 可园</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约40分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约8元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                可园是广东四大名园之一，是岭南园林的代表作品。园内建筑精巧，景色优美，体现了岭南园林的独特风格。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 东莞市区</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">住宿推荐</p>
+                  <p>东莞万达文华酒店/东莞喜来登大酒店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">晚餐推荐</p>
+                  <p>东莞国贸中心</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>住宿约600元/晚，晚餐约80元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                晚上入住东莞市区酒店，然后前往东莞国贸中心，在那里享用晚餐，之后可以在商场购物，感受东莞的现代化气息。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+            第二天：水乡风情与工业旅游
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 麻涌水乡</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约30分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>3小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>免费</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                麻涌水乡是东莞著名的水乡景点，有着"东莞周庄"的美誉。这里水网密布，环境优美，可以乘坐小船游览水乡风光，感受岭南水乡的独特魅力。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 麻涌农家菜</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>麻涌水乡农家菜馆</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约50元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>步行或打车</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                在麻涌水乡的农家菜馆享用午餐，品尝正宗的农家菜，如水乡酿豆腐、清蒸鱼等。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 松山湖华为欧洲小镇 → 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约40分钟，后打车+高铁</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>3小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>打车约150元，高铁票约30元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                松山湖华为欧洲小镇是华为的研发基地，这里的建筑风格模仿了欧洲的小镇，环境优美，被誉为"中国最美的企业园区"。可以在这里参观，感受科技与艺术的结合。游览后，前往东莞站乘坐高铁返回深圳，结束愉快的东莞之旅。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">交通费用</p>
+              <p>高铁往返: 约60元/人</p>
+              <p>市内交通: 约400元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿餐饮</p>
+              <p>住宿: 约600元/晚</p>
+              <p>餐饮: 约350元/人(两天)</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景点门票</p>
+              <p>约60元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">总花费</p>
+              <p class="font-bold text-primary">约1,870元/人(两人拼房)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 惠州攻略 -->
+    <div id="huizhou-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="relative h-64 overflow-hidden">
+        <img src="https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/2132738879297159212~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=EZNLPOvfouox603D4IW%2FyHrXttM%3D" 
+             alt="惠州双月湾" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 class="text-3xl font-bold mb-2">惠州 · 30分钟直达</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">海滨风光</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">西湖美景</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">客家文化</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <!-- 高铁信息 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-train mr-2 text-primary"></i>
+            高铁信息
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">出发站</p>
+              <p class="font-semibold">深圳北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">到达站</p>
+              <p class="font-semibold">惠州南站/惠州北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">票价</p>
+              <p class="font-semibold">约45元</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <h4 class="font-bold text-xl mb-4">2日游详细行程</h4>
+        
+        <!-- 第一天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+            第一天：海滨风光
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 前往双月湾</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-car mr-1 text-primary"></i>
+                    惠州南站打车约1.5小时
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">行程时间</p>
+                  <p>约1.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约150元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                早上从深圳北站乘坐高铁前往惠州南站，然后打车前往双月湾。双月湾是惠州著名的海滨景区，以其独特的双月形海湾而闻名。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 双月湾海鲜午餐</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>双月湾海鲜市场附近餐馆</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约80元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">特色菜品</p>
+                  <p>椒盐皮皮虾、清蒸石斑鱼</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                抵达双月湾后，在当地海鲜餐厅享用新鲜的海鲜午餐。双月湾的海鲜以其新鲜美味而闻名，特别是椒盐皮皮虾和清蒸石斑鱼。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 双月湾游玩</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">推荐景点</p>
+                  <p>双月湾观景台、海龟湾</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>4小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>海龟湾门票约30元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                下午游览双月湾，首先前往双月湾观景台，欣赏双月湾的全景。然后前往海龟湾，参观海龟保护区，了解海龟的生活习性和保护情况。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 双月湾住宿</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">住宿推荐</p>
+                  <p>双月湾海景酒店或民宿</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">价格区间</p>
+                  <p>约400-600元/晚</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">晚餐推荐</p>
+                  <p>酒店餐厅或附近海鲜排档</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                晚上入住双月湾的海景酒店或民宿，欣赏美丽的海景。晚餐可以在酒店餐厅或附近的海鲜排档享用，品尝新鲜的海鲜。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+            第二天：西湖与罗浮山
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 双月湾日出 → 前往惠州西湖</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约1.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">日出时间</p>
+                  <p>6:30-7:00</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约150元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                早起欣赏双月湾的绝美日出，然后前往惠州西湖。惠州西湖是广东四大名湖之一，以其秀丽的湖光山色和丰富的文化底蕴而闻名。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 惠州西湖附近午餐</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>惠州西湖附近餐馆</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约60元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">特色菜品</p>
+                  <p>惠州梅菜扣肉、东江酿豆腐</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                在惠州西湖附近的餐馆享用午餐，品尝惠州特色美食，如惠州梅菜扣肉和东江酿豆腐。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 惠州西湖 → 罗浮山 → 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车+高铁</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>西湖2小时，罗浮山2小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>罗浮山门票约60元/人，打车约100元，高铁票约45元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                下午游览惠州西湖，欣赏湖光山色。然后前往罗浮山，参观这座道教名山。最后前往惠州站乘坐高铁返回深圳，结束愉快的惠州之旅。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">交通费用</p>
+              <p>高铁往返: 约90元/人</p>
+              <p>市内交通: 约400元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿餐饮</p>
+              <p>住宿: 约500元/晚</p>
+              <p>餐饮: 约300元/人(两天)</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景点门票</p>
+              <p>约90元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">总花费</p>
+              <p class="font-bold text-primary">约1,880元/人(两人拼房)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 中山攻略 -->
+    <div id="zhongshan-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="relative h-64 overflow-hidden">
+        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+             alt="中山风光" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 class="text-3xl font-bold mb-2">中山 · 35分钟直达</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">伟人故里</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">岭南水乡</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">美食之都</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <!-- 高铁信息 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-train mr-2 text-primary"></i>
+            高铁信息
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">出发站</p>
+              <p class="font-semibold">深圳北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">到达站</p>
+              <p class="font-semibold">中山站/中山北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">票价</p>
+              <p class="font-semibold">约50元</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <h4 class="font-bold text-xl mb-4">2日游详细行程</h4>
+        
+        <!-- 第一天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+            第一天：伟人故里与历史文化
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 孙中山纪念堂</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-bus mr-1 text-primary"></i>
+                    中山站乘公交或打车约15分钟
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>1.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>免费</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                孙中山纪念堂是为纪念伟大的民主革命先行者孙中山先生而建，建筑风格独特，环境优美。参观纪念堂，了解孙中山先生的生平事迹和革命历程。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 孙文西路文化旅游步行街</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>中山烧腊店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约50元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约10分钟</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                孙文西路文化旅游步行街是中山最繁华的商业街之一，这里有许多历史建筑和特色商店。午餐可以品尝中山特色美食，如中山烧腊、石岐乳鸽等。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 詹园</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约25分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约60元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                詹园是一座具有岭南特色的古典园林，园内建筑精巧，景色优美。在这里可以欣赏到岭南园林的独特魅力，感受中国传统文化的精髓。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 岐江夜游</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">住宿推荐</p>
+                  <p>中山喜来登酒店/中山利和希尔顿酒店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">晚餐推荐</p>
+                  <p>龙瑞粥城</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>住宿约500元/晚，晚餐约70元/人，船票约50元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                晚上入住酒店后，前往岐江夜游，欣赏岐江两岸的美丽夜景。岐江夜游是中山的特色旅游项目，可以乘坐游船，欣赏城市的灯光夜景。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+            第二天：自然风光与民俗文化
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 紫马岭公园</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约15分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>免费</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                紫马岭公园是中山最大的城市公园，园内绿树成荫，环境优美。可以在这里散步、喂鸽子，享受悠闲的上午时光。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 品尝沙溪扣肉</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>沙溪老字号餐馆</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约60元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约20分钟</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                沙溪扣肉是中山的传统名菜，以其肥而不腻、入口即化的特点而闻名。午餐可以品尝这道美食，感受中山的饮食文化。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 中山影视城 → 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约30分钟，后乘高铁返回</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>门票约65元/人，打车约100元，高铁票约50元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                中山影视城是一个集旅游、观光、影视拍摄于一体的主题公园，这里有许多仿古建筑，可以体验不同时代的文化氛围。游览后，前往中山站乘坐高铁返回深圳，结束愉快的中山之旅。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">交通费用</p>
+              <p>高铁往返: 约100元/人</p>
+              <p>市内交通: 约200元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿餐饮</p>
+              <p>住宿: 约500元/晚</p>
+              <p>餐饮: 约300元/人(两天)</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景点门票</p>
+              <p>约175元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">总花费</p>
+              <p class="font-bold text-primary">约1,775元/人(两人拼房)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 汕尾攻略 -->
+    <div id="shanwei-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="relative h-64 overflow-hidden">
+        <img src="https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/2132738879297159212~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=EZNLPOvfouox603D4IW%2FyHrXttM%3D" 
+             alt="汕尾红海湾" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 class="text-3xl font-bold mb-2">汕尾 · 45分钟直达</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">海滨风光</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">红色文化</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">海鲜美食</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <!-- 高铁信息 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-train mr-2 text-primary"></i>
+            高铁信息
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">出发站</p>
+              <p class="font-semibold">深圳北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">到达站</p>
+              <p class="font-semibold">汕尾站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">票价</p>
+              <p class="font-semibold">约70元</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <h4 class="font-bold text-xl mb-4">2日游详细行程</h4>
+        
+        <!-- 第一天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+            第一天：海滨风光与红色文化
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 前往金町湾</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-car mr-1 text-primary"></i>
+                    汕尾站打车约30分钟
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">行程时间</p>
+                  <p>约30分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约80元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                早上从深圳北站乘坐高铁前往汕尾站，然后打车前往金町湾。金町湾是汕尾著名的海滨景区，以其美丽的海滩和清澈的海水而闻名。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 金町湾海鲜午餐</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>金町湾海景餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约80元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">特色菜品</p>
+                  <p>海鲜捞面、马鲛丸</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                抵达金町湾后，在当地海鲜餐厅享用新鲜的海鲜午餐。汕尾的海鲜以其新鲜美味而闻名，特别是海鲜捞面和马鲛丸。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 金町湾 → 马宫沙滩</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约20分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>4小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约50元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                下午在金町湾游玩，欣赏美丽的海景，感受阳光沙滩的魅力。然后前往马宫沙滩，这里的沙滩更加宁静，适合散步和拍照。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 二马路美食街</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">住宿推荐</p>
+                  <p>二马路附近酒店或民宿</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">晚餐推荐</p>
+                  <p>二马路美食街</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>住宿约400元/晚，晚餐约60元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                晚上入住二马路附近的酒店或民宿，然后前往二马路美食街，品尝汕尾特色美食，如咸薄饼、牛肉饼汤、蚝烙等。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+            第二天：红海湾与红色文化
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 红宫红场</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约15分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>1.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>免费</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                红宫红场是汕尾的红色旅游景点，是中国第一个县级苏维埃政权的诞生地。参观红宫红场，了解中国革命历史，感受红色文化的魅力。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 前往红海湾</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>红海湾海鲜餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约70元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约30分钟</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                前往红海湾，在沿途的海鲜餐厅享用午餐，品尝新鲜的海鲜。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 红海湾骑行 → 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>扫共享电动车骑行，后打车+高铁</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>3小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>打车约100元，高铁票约70元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                下午在红海湾扫共享电动车骑行，沿着海上公路欣赏美丽的海景，途经浮日湾、玻璃海、海上古堡等景点。游览后，前往汕尾站乘坐高铁返回深圳，结束愉快的汕尾之旅。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">交通费用</p>
+              <p>高铁往返: 约140元/人</p>
+              <p>市内交通: 约300元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿餐饮</p>
+              <p>住宿: 约400元/晚</p>
+              <p>餐饮: 约300元/人(两天)</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景点门票</p>
+              <p>免费</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">总花费</p>
+              <p class="font-bold text-primary">约1,640元/人(两人拼房)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 佛山攻略 -->
+    <div id="foshan-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="relative h-64 overflow-hidden">
+        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+             alt="佛山祖庙" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 class="text-3xl font-bold mb-2">佛山 · 50分钟直达</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">岭南文化</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">武术之乡</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">美食之都</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <!-- 高铁信息 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-train mr-2 text-primary"></i>
+            高铁信息
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">出发站</p>
+              <p class="font-semibold">深圳北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">到达站</p>
+              <p class="font-semibold">佛山站/佛山南站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">票价</p>
+              <p class="font-semibold">约75元</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <h4 class="font-bold text-xl mb-4">2日游详细行程</h4>
+        
+        <!-- 第一天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+            第一天：佛山文化之旅
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 佛山祖庙</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-subway mr-1 text-primary"></i>
+                    佛山站乘地铁或打车约20分钟
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约20元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                佛山祖庙是佛山最著名的文化景点，是一座集明清建筑艺术和佛山传统文化于一体的古建筑群。在这里可以欣赏到精美的建筑艺术和醒狮表演。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 岭南天地</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>猪肉婆私房菜</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约80元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>步行约10分钟</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                岭南天地是一个集文化、旅游、商业于一体的历史文化街区，这里有许多保存完好的岭南建筑和特色商店。午餐可以在这里品尝佛山特色美食。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 南风古灶</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约15分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约25元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                南风古灶是世界上现存最古老的龙窑之一，有着500多年的历史。在这里可以了解佛山陶瓷文化的发展历程，还可以亲手制作陶瓷。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 佛山市区</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">住宿推荐</p>
+                  <p>佛山罗浮宫索菲特酒店/佛山岭南天地马哥孛罗酒店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">晚餐推荐</p>
+                  <p>民信双皮奶</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>住宿约600元/晚，晚餐约50元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                晚上入住佛山市区酒店，然后前往民信双皮奶品尝正宗的佛山双皮奶。民信双皮奶是佛山著名的甜品店，其双皮奶口感醇厚，香甜可口。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+            第二天：顺德美食之旅
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 顺德清晖园</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约30分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>1.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约15元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                清晖园是广东四大名园之一，是岭南园林的代表作品。园内建筑精巧，景色优美，体现了岭南园林的独特风格。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 凤城酒家早茶</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>凤城酒家</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约70元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约10分钟</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                凤城酒家是顺德著名的酒家，以其精美的粤菜和早茶而闻名。午餐可以在这里品尝正宗的顺德美食，如虾饺、烧卖、凤爪等。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 逢简水乡 → 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约25分钟，后打车+高铁</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>打车约150元，高铁票约75元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                逢简水乡是顺德著名的水乡景点，有着"广东周庄"的美誉。这里水网密布，环境优美，可以乘坐小船游览水乡风光。游览后，前往佛山站乘坐高铁返回深圳，结束愉快的佛山之旅。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">交通费用</p>
+              <p>高铁往返: 约150元/人</p>
+              <p>市内交通: 约300元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿餐饮</p>
+              <p>住宿: 约600元/晚</p>
+              <p>餐饮: 约350元/人(两天)</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景点门票</p>
+              <p>约60元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">总花费</p>
+              <p class="font-bold text-primary">约1,960元/人(两人拼房)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 珠海攻略 -->
+    <div id="zhuhai-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="relative h-64 overflow-hidden">
+        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+             alt="珠海风光" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 class="text-3xl font-bold mb-2">珠海 · 60分钟直达</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">浪漫之城</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">海滨风光</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">美食之都</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <!-- 高铁信息 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-train mr-2 text-primary"></i>
+            高铁信息
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">出发站</p>
+              <p class="font-semibold">深圳北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">到达站</p>
+              <p class="font-semibold">珠海站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">票价</p>
+              <p class="font-semibold">约70元</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <h4 class="font-bold text-xl mb-4">2日游详细行程</h4>
+        
+        <!-- 第一天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+            第一天：珠海市区与海岛风情
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 情侣路 → 珠海渔女</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-bus mr-1 text-primary"></i>
+                    珠海站乘公交或打车约20分钟
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>免费</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                情侣路是珠海最著名的海滨大道，沿途风景优美。可以沿着情侣路散步，欣赏海景，到达珠海渔女雕像，这是珠海的城市象征。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 扬名广场</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>珠海老字号海鲜餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约80元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约10分钟</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                扬名广场是珠海繁华的商业中心，午餐可以在这里品尝新鲜的海鲜，感受珠海的饮食文化。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 外伶仃岛</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>香洲港乘船约1小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>4小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>船票约120元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                外伶仃岛是珠海著名的海岛，以其优美的自然风光和丰富的海鲜资源而闻名。可以在这里欣赏海岛风光，品尝新鲜的海鲜。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 珠海长隆海洋王国</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">住宿推荐</p>
+                  <p>珠海长隆横琴湾酒店/珠海长隆企鹅酒店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">晚餐推荐</p>
+                  <p>长隆海洋王国主题餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>住宿约800元/晚，晚餐约100元/人，门票约350元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                晚上入住珠海长隆主题酒店，然后前往珠海长隆海洋王国，欣赏精彩的海洋动物表演和烟花表演。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+            第二天：横琴岛与澳门风情
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 珠海长隆海洋王国</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>步行或酒店穿梭巴士</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>4小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>已包含在第一天门票中</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                上午继续在珠海长隆海洋王国游玩，参观各种海洋动物展馆，体验刺激的游乐设施。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 横琴口岸</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>横琴口岸美食街</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约70元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约20分钟</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                前往横琴口岸，在附近的美食街享用午餐，为下午的澳门之旅做准备。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 澳门一日游 → 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>横琴口岸过关，澳门公交或打车，后返回珠海站乘高铁</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>澳门交通约50元，高铁票约70元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                从横琴口岸过关前往澳门，可以游览澳门的著名景点，如大三巴牌坊、葡韵住宅博物馆等。游览后，返回珠海站乘坐高铁返回深圳，结束愉快的珠海之旅。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">交通费用</p>
+              <p>高铁往返: 约140元/人</p>
+              <p>市内交通: 约300元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿餐饮</p>
+              <p>住宿: 约800元/晚</p>
+              <p>餐饮: 约400元/人(两天)</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景点门票</p>
+              <p>约520元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">总花费</p>
+              <p class="font-bold text-primary">约2,660元/人(两人拼房)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 河源攻略 -->
+    <div id="heyuan-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="relative h-64 overflow-hidden">
+        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+             alt="河源万绿湖" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 class="text-3xl font-bold mb-2">河源 · 50分钟直达</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">万绿湖</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">客家文化</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">温泉之乡</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <!-- 高铁信息 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-train mr-2 text-primary"></i>
+            高铁信息
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">出发站</p>
+              <p class="font-semibold">深圳北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">到达站</p>
+              <p class="font-semibold">河源东站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">票价</p>
+              <p class="font-semibold">约65元</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <h4 class="font-bold text-xl mb-4">2日游详细行程</h4>
+        
+        <!-- 第一天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+            第一天：万绿湖与巴伐利亚庄园
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 万绿湖</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-car mr-1 text-primary"></i>
+                    河源东站打车约40分钟
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>3小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约120元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                万绿湖是华南地区最大的人工湖，以其碧绿的湖水和周围的青山而闻名。可以乘船游览湖区，欣赏湖光山色。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 万绿湖附近农家乐</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>万绿湖农家菜馆</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约60元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>步行或打车</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                在万绿湖附近的农家乐享用午餐，品尝新鲜的河鲜和客家特色菜肴。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 巴伐利亚庄园</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约30分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>4小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约100元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                巴伐利亚庄园是一个融合了东西方文化的度假庄园，这里有欧式建筑、温泉、游乐场等，可以在这里放松身心，享受度假的乐趣。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 巴伐利亚庄园温泉</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">住宿推荐</p>
+                  <p>巴伐利亚庄园雅阁度假酒店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">晚餐推荐</p>
+                  <p>庄园内特色餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>住宿约500元/晚，晚餐约80元/人，温泉票约150元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                晚上入住巴伐利亚庄园内的酒店，然后享用晚餐，之后可以泡温泉，缓解一天的疲劳。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+            第二天：霍山与客家文化
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 霍山</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约1小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>3.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约80元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                霍山是广东著名的丹霞地貌景区，以其奇特的山石和壮丽的景色而闻名。可以在这里登山、观景，感受大自然的鬼斧神工。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 龙川县城</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>龙川老字号餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约50元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约20分钟</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                前往龙川县城，在当地的老字号餐厅享用午餐，品尝正宗的客家美食。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 佗城 → 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约15分钟，后打车+高铁</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>打车约150元，高铁票约65元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                佗城是龙川的古城，有着悠久的历史和丰富的文化遗产。可以在这里参观古城墙、古祠堂等历史建筑，了解客家文化的发展历程。游览后，前往河源东站乘坐高铁返回深圳，结束愉快的河源之旅。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">交通费用</p>
+              <p>高铁往返: 约130元/人</p>
+              <p>市内交通: 约400元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿餐饮</p>
+              <p>住宿: 约500元/晚</p>
+              <p>餐饮: 约300元/人(两天)</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景点门票</p>
+              <p>约450元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">总花费</p>
+              <p class="font-bold text-primary">约2,180元/人(两人拼房)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 清远攻略 -->
+    <div id="qingyuan-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="relative h-64 overflow-hidden">
+        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+             alt="清远漂流" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 class="text-3xl font-bold mb-2">清远 · 57分钟直达</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">漂流之乡</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">山水风光</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">温泉度假</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <!-- 高铁信息 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-train mr-2 text-primary"></i>
+            高铁信息
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">出发站</p>
+              <p class="font-semibold">深圳北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">到达站</p>
+              <p class="font-semibold">清远站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">票价</p>
+              <p class="font-semibold">约80元</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <h4 class="font-bold text-xl mb-4">2日游详细行程</h4>
+        
+        <!-- 第一天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+            第一天：黄腾峡漂流与温泉
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 黄腾峡生态旅游区</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-car mr-1 text-primary"></i>
+                    清远站打车约40分钟
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>4小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约168元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                黄腾峡生态旅游区是清远著名的漂流胜地，以其刺激的漂流体验和优美的自然风光而闻名。可以在这里体验漂流的乐趣，欣赏周围的山水风光。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 景区内餐厅</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>黄腾峡餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约60元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>步行</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                在景区内的餐厅享用午餐，品尝当地的特色美食，补充体力。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 牛鱼嘴原始生态风景区</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约20分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>3小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约75元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                牛鱼嘴原始生态风景区是一个以原始生态为主题的旅游景区，这里有茂密的森林、清澈的溪流和壮观的瀑布。可以在这里徒步、观景，感受大自然的魅力。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 聚龙湾天然温泉</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">住宿推荐</p>
+                  <p>聚龙湾温泉度假村</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">晚餐推荐</p>
+                  <p>度假村内餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>住宿约500元/晚，晚餐约80元/人，温泉票约168元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                晚上入住聚龙湾温泉度假村，然后享用晚餐，之后可以泡温泉，缓解一天的疲劳。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+            第二天：连州地下河与英西峰林
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 连州地下河</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约2小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>3小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约120元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                连州地下河是一个大型的地下溶洞，以其壮观的钟乳石和清澈的地下河而闻名。可以乘船游览地下河，欣赏洞内的奇特景观。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 连州县城</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>连州老字号餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约50元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约15分钟</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                在连州县城的老字号餐厅享用午餐，品尝正宗的连州美食，如连州牛杂、连州菜心等。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 英西峰林 → 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约1.5小时，后打车+高铁</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>打车约300元，高铁票约80元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                英西峰林是广东著名的喀斯特地貌景区，以其奇特的山峰和美丽的田园风光而闻名。可以在这里欣赏峰林美景，感受大自然的神奇。游览后，前往清远站乘坐高铁返回深圳，结束愉快的清远之旅。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">交通费用</p>
+              <p>高铁往返: 约160元/人</p>
+              <p>市内交通: 约600元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿餐饮</p>
+              <p>住宿: 约500元/晚</p>
+              <p>餐饮: 约350元/人(两天)</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景点门票</p>
+              <p>约600元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">总花费</p>
+              <p class="font-bold text-primary">约2,710元/人(两人拼房)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 肇庆攻略 -->
+    <div id="zhaoqing-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="relative h-64 overflow-hidden">
+        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+             alt="肇庆七星岩" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 class="text-3xl font-bold mb-2">肇庆 · 73分钟直达</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">七星岩</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">鼎湖山</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">古城文化</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <!-- 高铁信息 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-train mr-2 text-primary"></i>
+            高铁信息
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">出发站</p>
+              <p class="font-semibold">深圳北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">到达站</p>
+              <p class="font-semibold">肇庆东站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">票价</p>
+              <p class="font-semibold">约90元</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <h4 class="font-bold text-xl mb-4">2日游详细行程</h4>
+        
+        <!-- 第一天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+            第一天：七星岩与古城文化
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 七星岩</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-car mr-1 text-primary"></i>
+                    肇庆东站打车约30分钟
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>4小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约70元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                七星岩是肇庆最著名的景点，以其奇特的石灰岩山峰和美丽的湖泊而闻名。可以乘船游览湖区，欣赏周围的山水风光。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 肇庆市区</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>肇庆老字号餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约60元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约15分钟</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                在肇庆市区的老字号餐厅享用午餐，品尝正宗的肇庆美食，如肇庆裹蒸粽、鼎湖山素斋等。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 宋城墙 → 梅庵</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>步行或打车</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>3小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>免费</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                宋城墙是肇庆保存完好的古代城墙，有着悠久的历史。梅庵是一座古老的佛教寺庙，以其精美的建筑和珍贵的文物而闻名。可以在这里参观古城墙和古寺庙，了解肇庆的历史文化。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 肇庆夜景</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">住宿推荐</p>
+                  <p>肇庆奥威斯酒店/肇庆星湖大酒店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">晚餐推荐</p>
+                  <p>肇庆特色餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>住宿约500元/晚，晚餐约70元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                晚上入住肇庆市区酒店，然后享用晚餐，之后可以欣赏肇庆的夜景，感受这座古城的独特魅力。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+            第二天：鼎湖山与龙母庙
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 鼎湖山</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约25分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>4小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约70元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                鼎湖山是广东四大名山之一，以其丰富的植被和清新的空气而闻名，被誉为"北回归线上的绿宝石"。可以在这里徒步、观景，感受大自然的魅力。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 鼎湖山附近</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>鼎湖山素斋馆</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约50元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>步行或打车</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                在鼎湖山附近的素斋馆享用午餐，品尝正宗的鼎湖山素斋，感受素食的独特魅力。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 龙母庙 → 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约40分钟，后打车+高铁</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>打车约150元，高铁票约90元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                龙母庙是肇庆著名的道教寺庙，以其悠久的历史和深厚的文化底蕴而闻名。可以在这里参观寺庙，了解龙母文化。游览后，前往肇庆东站乘坐高铁返回深圳，结束愉快的肇庆之旅。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">交通费用</p>
+              <p>高铁往返: 约180元/人</p>
+              <p>市内交通: 约300元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿餐饮</p>
+              <p>住宿: 约500元/晚</p>
+              <p>餐饮: 约350元/人(两天)</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景点门票</p>
+              <p>约140元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">总花费</p>
+              <p class="font-bold text-primary">约1,970元/人(两人拼房)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 汕头攻略 -->
+    <div id="shantou-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="relative h-64 overflow-hidden">
+        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+             alt="汕头风光" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 class="text-3xl font-bold mb-2">汕头 · 109分钟直达</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">海滨城市</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">美食之都</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">侨乡文化</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <!-- 高铁信息 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-train mr-2 text-primary"></i>
+            高铁信息
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">出发站</p>
+              <p class="font-semibold">深圳北站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">到达站</p>
+              <p class="font-semibold">汕头站</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">票价</p>
+              <p class="font-semibold">约130元</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <h4 class="font-bold text-xl mb-4">2日游详细行程</h4>
+        
+        <!-- 第一天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+            第一天：汕头市区与海滨风光
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 汕头老城区</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-car mr-1 text-primary"></i>
+                    汕头站打车约20分钟
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>3小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>免费</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                汕头老城区保存着许多骑楼建筑，充满了浓郁的南洋风情。可以在这里漫步，欣赏老建筑，感受汕头的历史文化。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 小公园附近</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>汕头老字号小吃店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约40元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>步行</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                在小公园附近的老字号小吃店享用午餐，品尝汕头特色小吃，如牛肉丸、蚝烙、肠粉等。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 礐石风景区</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约15分钟，后乘轮渡</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>4小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约10元/人(轮渡)</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                礐石风景区是汕头著名的风景名胜区，以其奇特的山石和美丽的海景而闻名。可以在这里登山、观景，欣赏汕头的城市风光。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 海滨路</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">住宿推荐</p>
+                  <p>汕头国际大酒店/汕头君华海逸酒店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">晚餐推荐</p>
+                  <p>海滨路海鲜大排档</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>住宿约500元/晚，晚餐约100元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                晚上入住汕头市区酒店，然后前往海滨路，在海鲜大排档享用晚餐，之后可以沿着海滨路散步，欣赏汕头的夜景。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+            第二天：南澳岛之旅
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 前往南澳岛</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约1小时，后乘轮渡或走南澳大桥</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">行程时间</p>
+                  <p>约1.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>打车约150元，轮渡约20元/人或过桥费约90元/车</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                早上从汕头市区出发，前往南澳岛。南澳岛是广东最大的海岛，以其优美的自然风光和丰富的海鲜资源而闻名。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 南澳岛海鲜午餐</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">餐厅推荐</p>
+                  <p>南澳岛海鲜餐厅</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约80元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>岛上打车或包车</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                抵达南澳岛后，在当地的海鲜餐厅享用午餐，品尝新鲜的海鲜。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 南澳岛环岛游 → 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>岛上包车环岛，后返回汕头站乘高铁</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>4小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>包车约300元，打车约150元，高铁票约130元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                下午在南澳岛进行环岛游，可以游览青澳湾、金银岛、总兵府等景点，欣赏海岛风光。游览后，返回汕头站乘坐高铁返回深圳，结束愉快的汕头之旅。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">交通费用</p>
+              <p>高铁往返: 约260元/人</p>
+              <p>市内交通: 约600元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿餐饮</p>
+              <p>住宿: 约500元/晚</p>
+              <p>餐饮: 约400元/人(两天)</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景点门票</p>
+              <p>约30元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">总花费</p>
+              <p class="font-bold text-primary">约2,590元/人(两人拼房)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 其他城市攻略可以按照类似的结构添加 -->
+  </main>
+
+  <!-- 旅行小贴士 -->
+  <section class="bg-gray-100 py-12">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8 text-center text-dark">元旦旅行小贴士</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 贴士1 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-4">
+            <i class="fa fa-calendar text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">提前规划</h3>
+          <p class="text-gray-600">
+            元旦是旅游高峰期，建议提前1-2周预订酒店和门票，规划好行程路线，避开人流高峰。
+          </p>
+        </div>
+        
+        <!-- 贴士2 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center mb-4">
+            <i class="fa fa-suitcase text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">装备准备</h3>
+          <p class="text-gray-600">
+            深圳冬季气温宜人，但早晚温差较大，建议携带薄外套。海滨游玩记得带防晒霜、墨镜和泳衣。
+          </p>
+        </div>
+        
+        <!-- 贴士3 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mb-4">
+            <i class="fa fa-money text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">费用预算</h3>
+          <p class="text-gray-600">
+            元旦期间部分景点和酒店可能涨价，建议预留充足预算。可使用旅游APP查找优惠信息，节省开支。
+          </p>
+        </div>
+        
+        <!-- 贴士4 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fa fa-map-marker text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">交通出行</h3>
+          <p class="text-gray-600">
+            深圳公共交通便利，可使用"深圳通"APP乘坐地铁和公交。自驾出行注意查看限行信息，提前预约。
+          </p>
+        </div>
+        
+        <!-- 贴士5 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fa fa-medkit text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">安全健康</h3>
+          <p class="text-gray-600">
+            随身携带常用药品，注意饮食卫生。海边游玩注意安全，遵循景区规定，不要擅自下水。
+          </p>
+        </div>
+        
+        <!-- 贴士6 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fa fa-camera text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">拍照技巧</h3>
+          <p class="text-gray-600">
+            深圳日出日落美景不容错过，建议提前30分钟到达拍摄地点。使用HDR模式可拍出更美的海景照片。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white py-8">
+    <div class="container mx-auto px-4 text-center">
+      <p class="mb-4">© 2025 元旦深圳周边游攻略 | 祝您旅途愉快！</p>
+      <div class="flex justify-center space-x-4">
+        <a href="#" class="text-white hover:text-secondary transition-colors">
+          <i class="fa fa-weixin text-xl"></i>
+        </a>
+        <a href="#" class="text-white hover:text-secondary transition-colors">
+          <i class="fa fa-weibo text-xl"></i>
+        </a>
+        <a href="#" class="text-white hover:text-secondary transition-colors">
+          <i class="fa fa-instagram text-xl"></i>
+        </a>
+        <a href="#" class="text-white hover:text-secondary transition-colors">
+          <i class="fa fa-youtube-play text-xl"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 显示城市详情
+    function showCityDetails(cityId) {
+      // 隐藏所有城市详情
+      const allCityDetails = document.querySelectorAll('.city-details');
+      allCityDetails.forEach(detail => {
+        detail.classList.add('hidden');
+      });
+      
+      // 显示选中的城市详情
+      const selectedCityDetail = document.getElementById(cityId + '-details');
+      if (selectedCityDetail) {
+        selectedCityDetail.classList.remove('hidden');
+        
+        // 平滑滚动到城市详情区域
+        selectedCityDetail.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      // 添加页面滚动动画
+      const animateOnScroll = function() {
+        const elements = document.querySelectorAll('.card-hover');
+        
+        elements.forEach(element => {
+          const elementPosition = element.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          
+          if (elementPosition < windowHeight * 0.85) {
+            element.classList.add('animate-fade-in');
+          }
+        });
+      };
+      
+      // 初始检查
+      animateOnScroll();
+      
+      // 滚动时检查
+      window.addEventListener('scroll', animateOnScroll);
+    });
+  </script>
+</body>
+</html>
