@@ -7,10 +7,11 @@
   <!-- Tailwind CSS v3 -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome -->
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
-  <!-- 统一的 Tailwind 配置 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.8/chart.umd.min.js"></script>
+  
+  <!-- Tailwind CSS 配置 -->
   <script>
     tailwind.config = {
       theme: {
@@ -21,65 +22,45 @@
             accent: '#10b981', // 绿色
             dark: '#1e293b',
             light: '#f8fafc'
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-          },
-          animation: {
-            'fade-in': 'fadeIn 0.5s ease-in-out',
-            'slide-down': 'slideDown 0.3s ease-out',
-            'slide-up': 'slideUp 0.3s ease-out',
-            'pulse-slow': 'pulse 3s infinite',
-          },
-          keyframes: {
-            fadeIn: {
-              '0%': { opacity: '0' },
-              '100%': { opacity: '1' },
-            },
-            slideDown: {
-              '0%': { transform: 'translateY(-10px)', opacity: '0' },
-              '100%': { transform: 'translateY(0)', opacity: '1' },
-            },
-            slideUp: {
-              '0%': { transform: 'translateY(10px)', opacity: '0' },
-              '100%': { transform: 'translateY(0)', opacity: '1' },
-            },
-          },
+          }
         }
       }
     }
   </script>
-  <style type="text/tailwindcss">
-    @layer utilities {
-      .text-shadow {
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      }
-      .card-hover {
-        @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
-      }
-      .glass-effect {
-        @apply bg-white bg-opacity-20 backdrop-blur-lg;
-      }
-      .gradient-overlay {
-        background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
-      }
-      .route-line {
-        @apply absolute left-4 top-0 bottom-0 w-0.5 bg-primary;
-      }
-      .route-dot {
-        @apply absolute left-4 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center transform -translate-x-1/2 z-10;
-      }
+  
+  <!-- 自定义样式 -->
+  <style>
+    .text-shadow {
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .gradient-overlay {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+    }
+    /* 动画类定义 */
+    .animate-fade-in {
+      animation: fadeIn 0.8s ease-in;
+    }
+    .animate-slide-up {
+      animation: slideUp 0.8s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
   </style>
 </head>
 <body class="bg-gray-50 font-sans">
   <!-- 页面头部 -->
   <header class="relative h-[60vh] min-h-[500px] overflow-hidden">
-    <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0">
       <img src="https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1856508667504099342~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=RZugLNfOQZukrH%2BpY308WANMusw%3D" 
            alt="深圳海景" 
-           class="w-full h-full object-cover">
-      <div class="absolute inset-0 gradient-overlay"></div>
+           class="w-full h-full object-cover" style="z-index: 0;">
+      <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
     </div>
     <div class="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
       <h1 class="text-4xl md:text-6xl font-bold mb-6 text-shadow animate-fade-in">深圳周边高铁2小时直达旅游攻略</h1>
@@ -148,7 +129,7 @@
             <!-- 中山 -->
             <div class="bg-yellow-50 rounded-lg p-4 text-center cursor-pointer hover:bg-yellow-100 transition-colors" onclick="showCityDetails('zhongshan')">
               <div class="text-yellow-600 text-3xl mb-2">
-                <i class="fa fa-flower"></i>
+                <i class="fa fa-star"></i>
               </div>
               <h4 class="font-bold">中山</h4>
               <p class="text-sm text-gray-600">35分钟</p>
@@ -157,7 +138,7 @@
             <!-- 汕尾 -->
             <div class="bg-red-50 rounded-lg p-4 text-center cursor-pointer hover:bg-red-100 transition-colors" onclick="showCityDetails('shanwei')">
               <div class="text-red-600 text-3xl mb-2">
-                <i class="fa fa-anchor"></i>
+                <i class="fa fa-ship"></i>
               </div>
               <h4 class="font-bold">汕尾</h4>
               <p class="text-sm text-gray-600">45分钟</p>
@@ -166,7 +147,7 @@
             <!-- 佛山 -->
             <div class="bg-purple-50 rounded-lg p-4 text-center cursor-pointer hover:bg-purple-100 transition-colors" onclick="showCityDetails('foshan')">
               <div class="text-purple-600 text-3xl mb-2">
-                <i class="fa fa-pagoda"></i>
+                <i class="fa fa-building"></i>
               </div>
               <h4 class="font-bold">佛山</h4>
               <p class="text-sm text-gray-600">50分钟</p>
@@ -184,7 +165,7 @@
             <!-- 河源 -->
             <div class="bg-lime-50 rounded-lg p-4 text-center cursor-pointer hover:bg-lime-100 transition-colors" onclick="showCityDetails('heyuan')">
               <div class="text-lime-600 text-3xl mb-2">
-                <i class="fa fa-mountain"></i>
+                <i class="fa fa-tree"></i>
               </div>
               <h4 class="font-bold">河源</h4>
               <p class="text-sm text-gray-600">50分钟</p>
@@ -193,7 +174,7 @@
             <!-- 清远 -->
             <div class="bg-amber-50 rounded-lg p-4 text-center cursor-pointer hover:bg-amber-100 transition-colors" onclick="showCityDetails('qingyuan')">
               <div class="text-amber-600 text-3xl mb-2">
-                <i class="fa fa-water"></i>
+                <i class="fa fa-tree"></i>
               </div>
               <h4 class="font-bold">清远</h4>
               <p class="text-sm text-gray-600">57分钟</p>
@@ -202,7 +183,7 @@
             <!-- 肇庆 -->
             <div class="bg-indigo-50 rounded-lg p-4 text-center cursor-pointer hover:bg-indigo-100 transition-colors" onclick="showCityDetails('zhaoqing')">
               <div class="text-indigo-600 text-3xl mb-2">
-                <i class="fa fa-monument"></i>
+                <i class="fa fa-building"></i>
               </div>
               <h4 class="font-bold">肇庆</h4>
               <p class="text-sm text-gray-600">73分钟</p>
@@ -211,7 +192,7 @@
             <!-- 汕头 -->
             <div class="bg-rose-50 rounded-lg p-4 text-center cursor-pointer hover:bg-rose-100 transition-colors" onclick="showCityDetails('shantou')">
               <div class="text-rose-600 text-3xl mb-2">
-                <i class="fa fa-fish"></i>
+                <i class="fa fa-cutlery"></i>
               </div>
               <h4 class="font-bold">汕头</h4>
               <p class="text-sm text-gray-600">109分钟</p>
@@ -227,16 +208,16 @@
     <!-- 东莞攻略 -->
     <div id="dongguan-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
       <div class="relative h-64 overflow-hidden">
-        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
-             alt="东莞风光" 
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 gradient-overlay"></div>
+        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&h=800&fit=crop" 
+             alt="东莞观音山" 
+             class="w-full h-full object-cover" style="z-index: 0;">
+        <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 class="text-3xl font-bold mb-2">东莞 · 15分钟直达</h3>
           <div class="flex flex-wrap gap-2">
             <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">岭南文化</span>
-            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">水乡风情</span>
-            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">工业旅游</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">自然风光</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">科技之旅</span>
           </div>
         </div>
       </div>
@@ -271,7 +252,7 @@
         <div class="mb-8">
           <h5 class="font-bold text-lg mb-4 flex items-center">
             <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
-            第一天：东莞市区与历史文化
+            第一天：历史文化与科技之旅
           </h5>
           
           <div class="relative pl-8 border-l-2 border-primary">
@@ -280,26 +261,26 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-sun-o text-xs"></i>
               </div>
-              <h6 class="font-bold">上午: 林则徐销烟池与虎门炮台</h6>
+              <h6 class="font-bold">上午: 可园博物馆</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <p class="text-sm text-gray-600">交通方式</p>
                   <p class="flex items-center">
-                    <i class="fa fa-car mr-1 text-primary"></i>
-                    东莞站打车约30分钟
+                    <i class="fa fa-bus mr-1 text-primary"></i>
+                    乘坐公交16/X18路
                   </p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">游览时间</p>
-                  <p>2.5小时</p>
+                  <p>1.5小时</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">预计花费</p>
-                  <p>约50元/人</p>
+                  <p>约8元/人（门票）</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                林则徐销烟池与虎门炮台是中国近代史上的重要历史遗迹，记录了中国人民反抗外国侵略的英勇斗争。参观这些历史遗迹，了解中国近代历史。
+                开放时间：09:30-17:30，岭南园林的代表，假山、湖水与锦鲤鱼、丹顶鹤共谱一曲自然与人文的和谐乐章。
               </p>
             </div>
             
@@ -308,36 +289,39 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-cutlery text-xs"></i>
               </div>
-              <h6 class="font-bold">中午: 虎门镇午餐</h6>
+              <h6 class="font-bold">中午: 东莞市区午餐</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <p class="text-sm text-gray-600">餐厅推荐</p>
-                  <p>虎门老字号烧鹅店</p>
+                  <p>东莞老饭店</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">人均消费</p>
-                  <p>约60元</p>
+                  <p>约80元</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">交通方式</p>
-                  <p>打车约10分钟</p>
+                  <p>可园博物馆步行约10分钟</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                在虎门镇的老字号烧鹅店享用午餐，品尝正宗的东莞烧鹅，这是东莞的传统名菜，以其皮脆肉嫩而闻名。
+                品尝正宗的东莞特色美食，如东莞烧鹅、厚街濑粉、道滘裹蒸粽等。
               </p>
             </div>
             
             <!-- 下午 -->
             <div class="mb-6 relative">
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
-                <i class="fa fa-moon-o text-xs"></i>
+                <i class="fa fa-clock-o text-xs"></i>
               </div>
-              <h6 class="font-bold">下午: 可园</h6>
+              <h6 class="font-bold">下午: 战争博物馆</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <p class="text-sm text-gray-600">交通方式</p>
-                  <p>打车约40分钟</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-bus mr-1 text-primary"></i>
+                    乘坐262路，虎门镇解放路113号
+                  </p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">游览时间</p>
@@ -345,11 +329,39 @@
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">预计花费</p>
-                  <p>约8元/人</p>
+                  <p>免费</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                可园是广东四大名园之一，是岭南园林的代表作品。园内建筑精巧，景色优美，体现了岭南园林的独特风格。
+                开放时间：08:30-17:30，以鸦片战争古战场为依托，展示了中国人民抗击英国侵略者的悲壮史实。
+              </p>
+            </div>
+            
+            <!-- 傍晚 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">傍晚: 南社明清古村</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-bus mr-1 text-primary"></i>
+                    东莞市茶山镇，乘公交309路
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>1.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约30元/人（门票）</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                开放时间：08:30-18:00，始建于宋朝，已有800多年历史，是保存完好的典型岭南血缘宗族村落。
               </p>
             </div>
             
@@ -358,23 +370,23 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-star-o text-xs"></i>
               </div>
-              <h6 class="font-bold">晚上: 东莞市区</h6>
+              <h6 class="font-bold">晚上: 东莞市区住宿</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <p class="text-sm text-gray-600">住宿推荐</p>
-                  <p>东莞万达文华酒店/东莞喜来登大酒店</p>
+                  <p>东莞国贸中心附近酒店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约300元/晚</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">晚餐推荐</p>
                   <p>东莞国贸中心</p>
                 </div>
-                <div>
-                  <p class="text-sm text-gray-600">预计花费</p>
-                  <p>住宿约600元/晚，晚餐约80元/人</p>
-                </div>
               </div>
               <p class="mt-2 text-gray-600">
-                晚上入住东莞市区酒店，然后前往东莞国贸中心，在那里享用晚餐，之后可以在商场购物，感受东莞的现代化气息。
+                晚上入住东莞市区酒店，然后前往东莞国贸中心享用晚餐，感受东莞的现代化气息。
               </p>
             </div>
           </div>
@@ -384,7 +396,7 @@
         <div class="mb-8">
           <h5 class="font-bold text-lg mb-4 flex items-center">
             <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
-            第二天：水乡风情与工业旅游
+            第二天：自然风光与休闲之旅
           </h5>
           
           <div class="relative pl-8 border-l-2 border-primary">
@@ -393,11 +405,14 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-sun-o text-xs"></i>
               </div>
-              <h6 class="font-bold">上午: 麻涌水乡</h6>
+              <h6 class="font-bold">上午: 广东观音山</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <p class="text-sm text-gray-600">交通方式</p>
-                  <p>打车约30分钟</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-train mr-1 text-primary"></i>
+                    乘车到樟木头站/换乘公交/打车
+                  </p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">游览时间</p>
@@ -405,11 +420,11 @@
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">预计花费</p>
-                  <p>免费</p>
+                  <p>约39元/人（门票）</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                麻涌水乡是东莞著名的水乡景点，有着"东莞周庄"的美誉。这里水网密布，环境优美，可以乘坐小船游览水乡风光，感受岭南水乡的独特魅力。
+                开放时间：07:00-18:30，登上世界最大的花岗岩观音像，俯瞰东莞城景，感受大自然的壮丽。
               </p>
             </div>
             
@@ -418,11 +433,11 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-cutlery text-xs"></i>
               </div>
-              <h6 class="font-bold">中午: 麻涌农家菜</h6>
+              <h6 class="font-bold">中午: 观音山附近午餐</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <p class="text-sm text-gray-600">餐厅推荐</p>
-                  <p>麻涌水乡农家菜馆</p>
+                  <p>观音山素食餐厅</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">人均消费</p>
@@ -430,24 +445,27 @@
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">交通方式</p>
-                  <p>步行或打车</p>
+                  <p>步行约10分钟</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                在麻涌水乡的农家菜馆享用午餐，品尝正宗的农家菜，如水乡酿豆腐、清蒸鱼等。
+                品尝特色素食，休息片刻后继续下午的行程。
               </p>
             </div>
             
             <!-- 下午 -->
-            <div class="relative">
+            <div class="mb-6 relative">
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
-                <i class="fa fa-moon-o text-xs"></i>
+                <i class="fa fa-clock-o text-xs"></i>
               </div>
-              <h6 class="font-bold">下午: 松山湖华为欧洲小镇 → 返回深圳</h6>
+              <h6 class="font-bold">下午: 隐贤山庄</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <p class="text-sm text-gray-600">交通方式</p>
-                  <p>打车约40分钟，后打车+高铁</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-bus mr-1 text-primary"></i>
+                    乘公交722路（约30分钟车程）
+                  </p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">游览时间</p>
@@ -455,56 +473,223 @@
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">预计花费</p>
-                  <p>打车约150元，高铁票约30元</p>
+                  <p>约109元/人（门票）</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                松山湖华为欧洲小镇是华为的研发基地，这里的建筑风格模仿了欧洲的小镇，环境优美，被誉为"中国最美的企业园区"。可以在这里参观，感受科技与艺术的结合。游览后，前往东莞站乘坐高铁返回深圳，结束愉快的东莞之旅。
+                开放时间：09:30-21:00，集人文景观与游乐项目于一体，有各种刺激游乐设施、表演还有众多人文景点，适合亲子游和年轻人游玩。
+              </p>
+            </div>
+            
+            <!-- 傍晚 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">傍晚: 松山湖景区</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-bus mr-1 text-primary"></i>
+                    乘公交323/328/329/342路均可
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>2小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>免费</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                开放时间：全天开放，风景如画，且完全免费。这里不仅适合拍照，还是徒步和骑行的好选择。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-train mr-1 text-primary"></i>
+                    松山湖乘公交到东莞站，再乘高铁返回深圳
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">行程时间</p>
+                  <p>约1.5小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约30元/人（高铁票）</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                结束愉快的东莞两日游，返回深圳。
               </p>
             </div>
           </div>
         </div>
         
-        <!-- 费用总结 -->
-        <div class="bg-gray-50 rounded-lg p-4">
-          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+        <!-- 其他推荐景点 -->
+        <div class="mb-8">
+          <h4 class="font-bold text-xl mb-4">其他推荐景点</h4>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- 华为欧洲小镇 -->
+            <div class="bg-gray-50 rounded-lg p-4">
+              <h5 class="font-bold mb-2">华为欧洲小镇</h5>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                <div>
+                  <p class="text-gray-600">⏰ 时间：</p>
+                  <p>全天开放</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">🚇 出行：</p>
+                  <p>乘公交347/523</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">💰 门票：</p>
+                  <p>免费，员工家属/朋友预约才能进</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">🌟 亮点：</p>
+                  <p>小镇以欧洲古典建筑风格为蓝本，环境优美，是科技与建筑美学结合的典范</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 南社明清古村 -->
+            <div class="bg-gray-50 rounded-lg p-4">
+              <h5 class="font-bold mb-2">南社明清古村</h5>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                <div>
+                  <p class="text-gray-600">⏰ 时间：</p>
+                  <p>08:30-18:00</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">🚇 出行：</p>
+                  <p>东莞市茶山镇，乘公交309路</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">💰 门票：</p>
+                  <p>30元/人</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">🌟 亮点：</p>
+                  <p>始建于宋朝，已有800多年历史，是保存完好的典型岭南血缘宗族村落</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 银瓶山 -->
+            <div class="bg-gray-50 rounded-lg p-4">
+              <h5 class="font-bold mb-2">银瓶山</h5>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                <div>
+                  <p class="text-gray-600">⏰ 时间：</p>
+                  <p>06:30-18:30</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">🚇 出行：</p>
+                  <p>公交902/751路</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">💰 门票：</p>
+                  <p>免费</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">🌟 亮点：</p>
+                  <p>东莞的第一高峰，拥有众多珍稀动植物，适合喜欢户外探险的游客</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 大岭山公园 -->
+            <div class="bg-gray-50 rounded-lg p-4">
+              <h5 class="font-bold mb-2">大岭山公园</h5>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                <div>
+                  <p class="text-gray-600">⏰ 时间：</p>
+                  <p>06:30-19:00</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">🚇 出行：</p>
+                  <p>公交258/378路</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">💰 门票：</p>
+                  <p>免费</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">🌟 亮点：</p>
+                  <p>无论是寻求心灵寄托还是欣赏自然风光，这里都能让游客有一个愉快的体验</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-blue-50 rounded-lg p-6">
+          <h4 class="font-bold text-xl mb-4">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <p class="text-sm text-gray-600">交通费用</p>
-              <p>高铁往返: 约60元/人</p>
-              <p>市内交通: 约400元/人</p>
+              <p class="font-bold">约200元/人</p>
+              <p class="text-xs text-gray-500 mt-1">包含高铁、公交、打车费用</p>
             </div>
             <div>
-              <p class="text-sm text-gray-600">住宿餐饮</p>
-              <p>住宿: 约600元/晚</p>
-              <p>餐饮: 约350元/人(两天)</p>
+              <p class="text-sm text-gray-600">门票费用</p>
+              <p class="font-bold">约186元/人</p>
+              <p class="text-xs text-gray-500 mt-1">包含可园、观音山、隐贤山庄、南社明清古村等景点门票</p>
             </div>
             <div>
-              <p class="text-sm text-gray-600">景点门票</p>
-              <p>约60元/人</p>
+              <p class="text-sm text-gray-600">餐饮费用</p>
+              <p class="font-bold">约260元/人</p>
+              <p class="text-xs text-gray-500 mt-1">包含4餐费用</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿费用</p>
+              <p class="font-bold">约300元/人</p>
+              <p class="text-xs text-gray-500 mt-1">两人拼房，一晚住宿</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">其他费用</p>
+              <p class="font-bold">约100元/人</p>
+              <p class="text-xs text-gray-500 mt-1">包含零食、水等杂费</p>
             </div>
             <div>
               <p class="text-sm text-gray-600">总花费</p>
-              <p class="font-bold text-primary">约1,870元/人(两人拼房)</p>
+              <p class="font-bold text-primary">约1,046元/人</p>
+              <p class="text-xs text-gray-500 mt-1">两人拼房价格</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+
     <!-- 惠州攻略 -->
     <div id="huizhou-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
       <div class="relative h-64 overflow-hidden">
-        <img src="https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/2132738879297159212~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=EZNLPOvfouox603D4IW%2FyHrXttM%3D" 
-             alt="惠州双月湾" 
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 gradient-overlay"></div>
+        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&h=800&fit=crop" 
+             alt="惠州巽寮湾玻璃海" 
+             class="w-full h-full object-cover" style="z-index: 0;">
+        <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 class="text-3xl font-bold mb-2">惠州 · 30分钟直达</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">海滨风光</span>
-            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">西湖美景</span>
-            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">客家文化</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">巽寮湾</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">玻璃海</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">玫瑰礼堂</span>
           </div>
         </div>
       </div>
@@ -523,12 +708,37 @@
             </div>
             <div>
               <p class="text-sm text-gray-600">到达站</p>
-              <p class="font-semibold">惠州南站/惠州北站</p>
+              <p class="font-semibold">惠东南站</p>
             </div>
             <div>
               <p class="text-sm text-gray-600">票价</p>
-              <p class="font-semibold">约45元</p>
+              <p class="font-semibold">约39元</p>
             </div>
+            <div>
+              <p class="text-sm text-gray-600">时长</p>
+              <p class="font-semibold">30分钟</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">下站交通</p>
+              <p class="font-semibold">定制H8路公交</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">公交票价</p>
+              <p class="font-semibold">现场20元，小程序17元</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 交通路线 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-map mr-2 text-primary"></i>
+            交通路线
+          </h4>
+          <div class="space-y-2">
+            <p class="text-sm">🚆 深圳北——惠东南，时长30min，票价39元</p>
+            <p class="text-sm">🚌 出站直接左转前往公交区域，乘定制H8路公交到巽寮湾任意景点</p>
+            <p class="text-sm">💡 定制H8路公交：现场买票20元，小程序17元（5.2号新出），也有传统H8路公交，一小时一班</p>
           </div>
         </div>
         
@@ -539,7 +749,7 @@
         <div class="mb-8">
           <h5 class="font-bold text-lg mb-4 flex items-center">
             <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
-            第一天：海滨风光
+            第一天：深圳出发 → 巽寮湾深度游玩
           </h5>
           
           <div class="relative pl-8 border-l-2 border-primary">
@@ -548,26 +758,26 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-sun-o text-xs"></i>
               </div>
-              <h6 class="font-bold">上午: 前往双月湾</h6>
+              <h6 class="font-bold">上午: 深圳北 → 惠东南 → 巽寮湾</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <p class="text-sm text-gray-600">交通方式</p>
                   <p class="flex items-center">
-                    <i class="fa fa-car mr-1 text-primary"></i>
-                    惠州南站打车约1.5小时
+                    <i class="fa fa-train mr-1 text-primary"></i>
+                    高铁+定制H8路公交
                   </p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">行程时间</p>
-                  <p>约1.5小时</p>
+                  <p>约2小时（高铁30min+公交1.5h）</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">预计花费</p>
-                  <p>约150元</p>
+                  <p>高铁39元+公交17-20元</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                早上从深圳北站乘坐高铁前往惠州南站，然后打车前往双月湾。双月湾是惠州著名的海滨景区，以其独特的双月形海湾而闻名。
+                早上从深圳北站乘坐高铁前往惠东南站，出站后左转前往公交区域，乘坐定制H8路公交直接到巽寮湾任意景点。到达后先前往住宿地点放下行李。
               </p>
             </div>
             
@@ -576,23 +786,23 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-cutlery text-xs"></i>
               </div>
-              <h6 class="font-bold">中午: 双月湾海鲜午餐</h6>
+              <h6 class="font-bold">中午: 觅食与租车</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <p class="text-sm text-gray-600">餐厅推荐</p>
-                  <p>双月湾海鲜市场附近餐馆</p>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>租电动车</p>
                 </div>
                 <div>
-                  <p class="text-sm text-gray-600">人均消费</p>
-                  <p>约80元</p>
+                  <p class="text-sm text-gray-600">租车费用</p>
+                  <p>觅度租电动车，50元/天（到晚上22:00）</p>
                 </div>
                 <div>
-                  <p class="text-sm text-gray-600">特色菜品</p>
-                  <p>椒盐皮皮虾、清蒸石斑鱼</p>
+                  <p class="text-sm text-gray-600">午餐推荐</p>
+                  <p>多祝早餐</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                抵达双月湾后，在当地海鲜餐厅享用新鲜的海鲜午餐。双月湾的海鲜以其新鲜美味而闻名，特别是椒盐皮皮虾和清蒸石斑鱼。
+                在觅度租电动车，然后前往多祝早餐享用午餐，体验当地特色美食。
               </p>
             </div>
             
@@ -601,23 +811,23 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-moon-o text-xs"></i>
               </div>
-              <h6 class="font-bold">下午: 双月湾游玩</h6>
+              <h6 class="font-bold">下午: 巽寮湾景点游览</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <p class="text-sm text-gray-600">推荐景点</p>
-                  <p>双月湾观景台、海龟湾</p>
+                  <p class="text-sm text-gray-600">游览路线</p>
+                  <p>磨子石公园 → 乌斯怀亚沙滩 → 双鱼岛</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">游览时间</p>
-                  <p>4小时</p>
+                  <p>约4小时</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">预计花费</p>
-                  <p>海龟湾门票约30元/人</p>
+                  <p>磨子石公园门票约20元/人</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                下午游览双月湾，首先前往双月湾观景台，欣赏双月湾的全景。然后前往海龟湾，参观海龟保护区，了解海龟的生活习性和保护情况。
+                下午骑电动车游览巽寮湾的主要景点：磨子石公园（玻璃海、可坐船去三角洲岛）、乌斯怀亚沙滩（蓝色灯塔和秋千）、双鱼岛（沿海公路）。
               </p>
             </div>
             
@@ -626,23 +836,23 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-star-o text-xs"></i>
               </div>
-              <h6 class="font-bold">晚上: 双月湾住宿</h6>
+              <h6 class="font-bold">晚上: 美食与休闲</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <p class="text-sm text-gray-600">住宿推荐</p>
-                  <p>双月湾海景酒店或民宿</p>
-                </div>
-                <div>
-                  <p class="text-sm text-gray-600">价格区间</p>
-                  <p>约400-600元/晚</p>
-                </div>
-                <div>
                   <p class="text-sm text-gray-600">晚餐推荐</p>
-                  <p>酒店餐厅或附近海鲜排档</p>
+                  <p>当地海鲜排档</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">甜品推荐</p>
+                  <p>曾记糖水</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>晚餐约80元/人，甜品约20元</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                晚上入住双月湾的海景酒店或民宿，欣赏美丽的海景。晚餐可以在酒店餐厅或附近的海鲜排档享用，品尝新鲜的海鲜。
+                晚上在当地海鲜排档享用新鲜海鲜，然后前往曾记糖水品尝招牌桃胶烧仙草。
               </p>
             </div>
           </div>
@@ -652,7 +862,7 @@
         <div class="mb-8">
           <h5 class="font-bold text-lg mb-4 flex items-center">
             <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
-            第二天：西湖与罗浮山
+            第二天：巽寮湾浪漫之旅 → 返回深圳
           </h5>
           
           <div class="relative pl-8 border-l-2 border-primary">
@@ -661,23 +871,23 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-sun-o text-xs"></i>
               </div>
-              <h6 class="font-bold">上午: 双月湾日出 → 前往惠州西湖</h6>
+              <h6 class="font-bold">上午: 浪漫景点打卡</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <p class="text-sm text-gray-600">交通方式</p>
-                  <p>打车约1.5小时</p>
+                  <p class="text-sm text-gray-600">游览路线</p>
+                  <p>赶海公园 → 玫瑰礼堂 → 星咖</p>
                 </div>
                 <div>
-                  <p class="text-sm text-gray-600">日出时间</p>
-                  <p>6:30-7:00</p>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>约3小时</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">预计花费</p>
-                  <p>约150元</p>
+                  <p>赶海工具约10元（可选）</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                早起欣赏双月湾的绝美日出，然后前往惠州西湖。惠州西湖是广东四大名湖之一，以其秀丽的湖光山色和丰富的文化底蕴而闻名。
+                上午继续骑电动车游览：赶海公园（适合赶海，带小朋友也适合）、玫瑰礼堂（白色海边礼堂，浪漫打卡点）、星咖（在玫瑰礼堂附近，咖啡饮品）。
               </p>
             </div>
             
@@ -686,23 +896,23 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-cutlery text-xs"></i>
               </div>
-              <h6 class="font-bold">中午: 惠州西湖附近午餐</h6>
+              <h6 class="font-bold">中午: 蓝湾沙滩午餐与休息</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <p class="text-sm text-gray-600">餐厅推荐</p>
-                  <p>惠州西湖附近餐馆</p>
+                  <p>蓝湾沙滩咖啡甜品车</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">人均消费</p>
-                  <p>约60元</p>
+                  <p>约50元</p>
                 </div>
                 <div>
-                  <p class="text-sm text-gray-600">特色菜品</p>
-                  <p>惠州梅菜扣肉、东江酿豆腐</p>
+                  <p class="text-sm text-gray-600">特色体验</p>
+                  <p>椰树林拍照、看日落</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                在惠州西湖附近的餐馆享用午餐，品尝惠州特色美食，如惠州梅菜扣肉和东江酿豆腐。
+                在蓝湾沙滩的咖啡甜品车享用午餐，这里有很多卡哇伊的咖啡甜品车，还有一排排的椰树，拍照很出片。
               </p>
             </div>
             
@@ -711,26 +921,119 @@
               <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
                 <i class="fa fa-moon-o text-xs"></i>
               </div>
-              <h6 class="font-bold">下午: 惠州西湖 → 罗浮山 → 返回深圳</h6>
+              <h6 class="font-bold">下午: 蓝湾沙滩 → 九铭屿海 → 返回深圳</h6>
               <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <p class="text-sm text-gray-600">交通方式</p>
-                  <p>打车+高铁</p>
+                  <p>电动车+公交+高铁</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">游览时间</p>
-                  <p>西湖2小时，罗浮山2小时</p>
+                  <p>蓝湾沙滩2小时，九铭屿海30分钟</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">预计花费</p>
-                  <p>罗浮山门票约60元/人，打车约100元，高铁票约45元</p>
+                  <p>公交17-20元+高铁39元</p>
                 </div>
               </div>
               <p class="mt-2 text-gray-600">
-                下午游览惠州西湖，欣赏湖光山色。然后前往罗浮山，参观这座道教名山。最后前往惠州站乘坐高铁返回深圳，结束愉快的惠州之旅。
+                在蓝湾沙滩欣赏完日落后，前往九铭屿海（沿海公路惠州"小镰仓"）打卡，然后归还电动车，乘坐定制H8路公交返回惠东南站，乘坐高铁返回深圳，结束愉快的巽寮湾之旅。
               </p>
             </div>
           </div>
+        </div>
+        
+        <!-- 景点推荐 -->
+        <div class="mb-8">
+          <h4 class="font-bold text-xl mb-4">🌴 景点推荐（个人体验）</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- 磨子石公园 -->
+            <div class="bg-white border rounded-lg p-4 shadow-sm">
+              <h5 class="font-bold text-lg flex items-center">
+                <span class="text-yellow-500 mr-2">🌟🌟🌟🌟🌟</span>
+                磨子石公园
+              </h5>
+              <p class="text-gray-600 mt-2">
+                海水特别的清澈，真的是玻璃海还能看到小鱼🐟，这里还可以坐船去三角洲岛
+              </p>
+            </div>
+            <!-- 蓝湾沙滩 -->
+            <div class="bg-white border rounded-lg p-4 shadow-sm">
+              <h5 class="font-bold text-lg flex items-center">
+                <span class="text-yellow-500 mr-2">🌟🌟🌟🌟🌟</span>
+                蓝湾沙滩
+              </h5>
+              <p class="text-gray-600 mt-2">
+                很多卡哇伊的咖啡甜品车，还有一排排的椰树，拍照很出片，这里可以看日落视野很棒
+              </p>
+            </div>
+            <!-- 乌斯怀亚沙滩 -->
+            <div class="bg-white border rounded-lg p-4 shadow-sm">
+              <h5 class="font-bold text-lg flex items-center">
+                <span class="text-yellow-500 mr-2">🌟🌟🌟🌟</span>
+                乌斯怀亚沙滩
+              </h5>
+              <p class="text-gray-600 mt-2">
+                有座蓝色的灯塔和秋千，细细的沙子踩起来很舒服，这里有个咖啡吧台拍照很出片
+              </p>
+            </div>
+            <!-- 玫瑰礼堂 -->
+            <div class="bg-white border rounded-lg p-4 shadow-sm">
+              <h5 class="font-bold text-lg flex items-center">
+                <span class="text-yellow-500 mr-2">🌟🌟🌟🌟</span>
+                玫瑰礼堂
+              </h5>
+              <p class="text-gray-600 mt-2">
+                白色的海边礼堂很浪漫，从这里还可以下去沙滩，沙滩尽头有个灯塔，"星咖"就在这里
+              </p>
+            </div>
+            <!-- 赶海公园 -->
+            <div class="bg-white border rounded-lg p-4 shadow-sm">
+              <h5 class="font-bold text-lg flex items-center">
+                <span class="text-yellow-500 mr-2">🌟🌟🌟</span>
+                赶海公园
+              </h5>
+              <p class="text-gray-600 mt-2">
+                适合喜欢赶海的朋友，带小朋友也适合，记得提前看下潮汐表
+              </p>
+            </div>
+            <!-- 九铭屿海 -->
+            <div class="bg-white border rounded-lg p-4 shadow-sm">
+              <h5 class="font-bold text-lg flex items-center">
+                <span class="text-yellow-500 mr-2">🌟🌟</span>
+                九铭屿海
+              </h5>
+              <p class="text-gray-600 mt-2">
+                沿海公路惠州"小镰仓"，游玩的必经之路，可以顺道打个卡，不太好拍照过往车辆很多
+              </p>
+            </div>
+            <!-- 双鱼岛 -->
+            <div class="bg-white border rounded-lg p-4 shadow-sm">
+              <h5 class="font-bold text-lg flex items-center">
+                <span class="text-yellow-500 mr-2">🌟</span>
+                双鱼岛
+              </h5>
+              <p class="text-gray-600 mt-2">
+                我真的觉得蛮一般的，电动车只能停在外面走进去也挺远的，附近没有什么好看的店，海水也一般般
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 实用小贴士 -->
+        <div class="mb-8 bg-yellow-50 rounded-lg p-4">
+          <h4 class="font-bold text-xl mb-4 flex items-center">
+            <i class="fa fa-lightbulb-o mr-2 text-yellow-500"></i>
+            ✅ 游玩小贴士
+          </h4>
+          <ul class="list-disc pl-6 space-y-2 text-gray-700">
+            <li>磨子石外面的观光车不用乘坐，走到海边就5分钟左右，蓝湾沙滩这里可以坐船，会经过4个海岛（乌龟岛、美人鱼岛、海鸥岛、还有个忘记名字了，美人鱼岛可以上去拍照），拼船50/人大家可以17:30后体验一下，还能看一场海上落日</li>
+            <li>很🔥的曾记糖水确实很不错，招牌桃胶烧仙草很不错</li>
+            <li>非自驾的宝子游玩可以考虑租电动车，我是在觅度租的，50/天（到晚上22:00），另外如果大家想吃海鲜怕被坑可以先看看网上有无团购套餐</li>
+            <li>赶海记得提前查看潮汐表，带好赶海工具</li>
+            <li>蓝湾沙滩的日落很美，建议提前1小时到达找好拍照位置</li>
+            <li>玫瑰礼堂上午拍照光线最好，避免正午阳光太强</li>
+          </ul>
         </div>
         
         <!-- 费用总结 -->
@@ -739,21 +1042,23 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p class="text-sm text-gray-600">交通费用</p>
-              <p>高铁往返: 约90元/人</p>
-              <p>市内交通: 约400元/人</p>
+              <p>高铁往返: 约78元/人（39元×2）</p>
+              <p>公交往返: 约34-40元/人（17-20元×2）</p>
+              <p>电动车租赁: 50元/天</p>
             </div>
             <div>
               <p class="text-sm text-gray-600">住宿餐饮</p>
-              <p>住宿: 约500元/晚</p>
-              <p>餐饮: 约300元/人(两天)</p>
+              <p>住宿: 约300-500元/晚（海景民宿）</p>
+              <p>餐饮: 约250元/人(两天)</p>
             </div>
             <div>
               <p class="text-sm text-gray-600">景点门票</p>
-              <p>约90元/人</p>
+              <p>磨子石公园: 约20元/人</p>
+              <p>其他景点: 免费</p>
             </div>
             <div>
               <p class="text-sm text-gray-600">总花费</p>
-              <p class="font-bold text-primary">约1,880元/人(两人拼房)</p>
+              <p class="font-bold text-primary">约732-948元/人(两人拼房)</p>
             </div>
           </div>
         </div>
@@ -763,10 +1068,10 @@
     <!-- 中山攻略 -->
     <div id="zhongshan-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
       <div class="relative h-64 overflow-hidden">
-        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
-             alt="中山风光" 
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 gradient-overlay"></div>
+        <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&h=800&fit=crop" 
+             alt="中山孙中山故居" 
+             class="w-full h-full object-cover" style="z-index: 0;">
+        <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 class="text-3xl font-bold mb-2">中山 · 35分钟直达</h3>
           <div class="flex flex-wrap gap-2">
@@ -1031,10 +1336,10 @@
     <!-- 汕尾攻略 -->
     <div id="shanwei-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
       <div class="relative h-64 overflow-hidden">
-        <img src="https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/2132738879297159212~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=EZNLPOvfouox603D4IW%2FyHrXttM%3D" 
+        <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1200&h=800&fit=crop" 
              alt="汕尾红海湾" 
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 gradient-overlay"></div>
+             class="w-full h-full object-cover" style="z-index: 0;">
+        <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 class="text-3xl font-bold mb-2">汕尾 · 45分钟直达</h3>
           <div class="flex flex-wrap gap-2">
@@ -1299,10 +1604,10 @@
     <!-- 佛山攻略 -->
     <div id="foshan-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
       <div class="relative h-64 overflow-hidden">
-        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+        <img src="https://images.unsplash.com/photo-1513639709628-7262fa063d12?w=1200&h=800&fit=crop" 
              alt="佛山祖庙" 
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 gradient-overlay"></div>
+             class="w-full h-full object-cover" style="z-index: 0;">
+        <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 class="text-3xl font-bold mb-2">佛山 · 50分钟直达</h3>
           <div class="flex flex-wrap gap-2">
@@ -1567,10 +1872,10 @@
     <!-- 珠海攻略 -->
     <div id="zhuhai-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
       <div class="relative h-64 overflow-hidden">
-        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
-             alt="珠海风光" 
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 gradient-overlay"></div>
+        <img src="https://images.unsplash.com/photo-1548477196-2f233370b56a?w=1200&h=800&fit=crop" 
+             alt="珠海渔女" 
+             class="w-full h-full object-cover" style="z-index: 0;">
+        <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 class="text-3xl font-bold mb-2">珠海 · 60分钟直达</h3>
           <div class="flex flex-wrap gap-2">
@@ -1835,10 +2140,10 @@
     <!-- 河源攻略 -->
     <div id="heyuan-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
       <div class="relative h-64 overflow-hidden">
-        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+        <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&h=800&fit=crop" 
              alt="河源万绿湖" 
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 gradient-overlay"></div>
+             class="w-full h-full object-cover" style="z-index: 0;">
+        <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 class="text-3xl font-bold mb-2">河源 · 50分钟直达</h3>
           <div class="flex flex-wrap gap-2">
@@ -2103,10 +2408,10 @@
     <!-- 清远攻略 -->
     <div id="qingyuan-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
       <div class="relative h-64 overflow-hidden">
-        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&h=800&fit=crop" 
              alt="清远漂流" 
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 gradient-overlay"></div>
+             class="w-full h-full object-cover" style="z-index: 0;">
+        <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 class="text-3xl font-bold mb-2">清远 · 57分钟直达</h3>
           <div class="flex flex-wrap gap-2">
@@ -2371,10 +2676,10 @@
     <!-- 肇庆攻略 -->
     <div id="zhaoqing-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
       <div class="relative h-64 overflow-hidden">
-        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
+        <img src="https://images.unsplash.com/photo-1548092372-0d1bd40894a3?w=1200&h=800&fit=crop" 
              alt="肇庆七星岩" 
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 gradient-overlay"></div>
+             class="w-full h-full object-cover" style="z-index: 0;">
+        <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 class="text-3xl font-bold mb-2">肇庆 · 73分钟直达</h3>
           <div class="flex flex-wrap gap-2">
@@ -2639,10 +2944,10 @@
     <!-- 汕头攻略 -->
     <div id="shantou-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
       <div class="relative h-64 overflow-hidden">
-        <img src="https://p3-doubao-search-sign.byteimg.com/labis/5dc2ae28b0b0f4cfb3c46a93dc5e353c~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1781313837&x-signature=0NghZWr%2FsFfn9KOYnX2XKdLtiyY%3D" 
-             alt="汕头风光" 
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 gradient-overlay"></div>
+        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&h=800&fit=crop" 
+             alt="汕头南澳岛" 
+             class="w-full h-full object-cover" style="z-index: 0;">
+        <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 class="text-3xl font-bold mb-2">汕头 · 109分钟直达</h3>
           <div class="flex flex-wrap gap-2">
@@ -3030,10 +3335,10 @@
         new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: ['东莞', '惠州', '中山', '汕尾', '佛山', '珠海', '河源', '清远', '肇庆', '云浮'],
+            labels: ['东莞', '惠州', '中山', '汕尾', '佛山', '珠海', '河源', '清远', '肇庆', '汕头'],
             datasets: [{
               label: '高铁时间 (分钟)',
-              data: [15, 30, 35, 45, 50, 60, 50, 57, 75, 90],
+              data: [15, 30, 35, 45, 50, 60, 50, 57, 73, 109],
               backgroundColor: [
                 '#3b82f6', '#10b981', '#eab308', '#ef4444', '#8b5cf6',
                 '#06b6d4', '#84cc16', '#f59e0b', '#ec4899', '#6366f1'
@@ -3077,7 +3382,7 @@
       
       // 添加页面滚动动画
       const animateOnScroll = function() {
-        const elements = document.querySelectorAll('.card-hover');
+        const elements = document.querySelectorAll('.city-details, .bg-white.p-6.rounded-lg.shadow-md');
         
         elements.forEach(element => {
           const elementPosition = element.getBoundingClientRect().top;
