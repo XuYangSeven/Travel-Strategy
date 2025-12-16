@@ -195,8 +195,13 @@
                 <circle cx="470" cy="480" r="10" fill="#6366f1" stroke="#fff" stroke-width="2" cursor="pointer"/>
                 <text x="495" y="485" font-size="14" font-weight="bold" fill="#6366f1">汕头 (109分钟)</text>
                 
+                <!-- 韶关 -->
+                <line x1="400" y1="300" x2="550" y2="450" stroke="#10b981" stroke-width="3"/>
+                <circle cx="550" cy="450" r="10" fill="#10b981" stroke="#fff" stroke-width="2" cursor="pointer"/>
+                <text x="575" y="455" font-size="14" font-weight="bold" fill="#10b981">韶关 (100分钟)</text>
+                
                 <!-- 图例 -->
-                <rect x="650" y="100" width="150" height="350" fill="rgba(255, 255, 255, 0.8)" stroke="#e2e8f0" stroke-width="2" rx="8"/>
+                <rect x="650" y="100" width="150" height="380" fill="rgba(255, 255, 255, 0.8)" stroke="#e2e8f0" stroke-width="2" rx="8"/>
                 <text x="725" y="130" font-size="16" font-weight="bold" text-anchor="middle" fill="#1e293b">城市图例</text>
                 
                 <!-- 图例项 -->
@@ -229,6 +234,9 @@
                 
                 <rect x="670" y="430" width="12" height="12" fill="#6366f1" rx="2"/>
                 <text x="690" y="440" font-size="12" fill="#1e293b">汕头 (109分钟)</text>
+                
+                <rect x="670" y="460" width="12" height="12" fill="#10b981" rx="2"/>
+                <text x="690" y="470" font-size="12" fill="#1e293b">韶关 (100分钟)</text>
                 <text x="400" y="580" font-size="16" font-weight="500" text-anchor="middle" fill="#1e293b">详情可点击下方卡片查看！</text>
               </svg>
             </div>
@@ -324,6 +332,15 @@
               </div>
               <h4 class="font-bold">汕头</h4>
               <p class="text-sm text-gray-600">109分钟</p>
+            </div>
+            
+            <!-- 韶关 -->
+            <div class="bg-emerald-50 rounded-lg p-4 text-center cursor-pointer hover:bg-emerald-100 transition-colors" onclick="showCityDetails('shaoguan')">
+              <div class="text-emerald-600 text-3xl mb-2">
+                <i class="fa fa-building"></i>
+              </div>
+              <h4 class="font-bold">韶关</h4>
+              <p class="text-sm text-gray-600">100分钟</p>
             </div>
           </div>
         </div>
@@ -3964,6 +3981,352 @@
             <div>
               <p class="text-sm text-gray-600">总花费</p>
               <p class="font-bold text-primary">约1,500元/人(两人拼房)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 韶关攻略 -->
+    <div id="shaoguan-details" class="city-details hidden bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="relative h-64 overflow-hidden">
+        <img src="https://images.pexels.com/photos/26932191/pexels-photo-26932191.jpeg" 
+             alt="韶关云门山" 
+             class="w-full h-full object-cover" style="z-index: 0;">
+        <div class="absolute inset-0 gradient-overlay" style="z-index: 10;"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 class="text-3xl font-bold mb-2">韶关 · 1小时20分钟直达</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">自然风光</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">漂流体验</span>
+            <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1 text-sm">古寺文化</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <!-- 交通信息 -->
+        <div class="mb-8 bg-blue-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2 flex items-center">
+            <i class="fa fa-train mr-2 text-primary"></i>
+            交通信息
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">高铁出行</p>
+              <p class="font-semibold">深圳北-韶关，1h20分钟，约189元</p>
+              <p class="text-sm text-gray-600">下车后打车到云门山景区30分钟，约100元</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">自驾出行</p>
+              <p class="font-semibold">3.5小时到达</p>
+              <p class="text-sm text-gray-600">2025年12月31日前，持高铁票到景区购票可抵扣30元</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景区交通</p>
+              <p class="font-semibold">景区内有观光车，50元/人</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行程规划 -->
+        <h4 class="font-bold text-xl mb-4">2日游详细行程</h4>
+        
+        <!-- 第一天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">1</span>
+            第一天：云门山景区一日游
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 索道上山➡祥云楼➡山间漫步</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-cable-car mr-1 text-primary"></i>
+                    索道缆车
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>4小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>索道票约120元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                乘坐糖果色索道缆车，15分钟慢慢上山，沿途山水风光尽收眼底。到达山顶后游览祥云楼，然后在山间漫步，呼吸新鲜空气。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 景区内用餐</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">推荐餐厅</p>
+                  <p>云门山商业街美食店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约60元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>步行</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                在云门山门口的商业街用餐，有各种当地特色美食，不用担心饿到。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 玻璃桥➡云上飞瀑➡云上漂流➡瀑布脚下观景➡云上飞车</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">游览路线</p>
+                  <p>玻璃桥➡云上飞瀑➡云上漂流➡瀑布脚下➡云上飞车</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>6小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>各项目套票约280元/人</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                下午体验云门山的明星项目：316米全透明高空玻璃桥，168米高的云上飞瀑，刺激的云上漂流，最后乘坐1.8km长的云上飞车下山，结束一天的游玩。
+              </p>
+            </div>
+            
+            <!-- 晚上 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-star-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">晚上: 景区附近住宿</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">推荐住宿</p>
+                  <p>云门山温泉酒店</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约10分钟</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>约800元/晚</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                晚上在云门山景区附近住宿，推荐云门山温泉酒店，可以泡温泉放松身心，缓解一天的疲劳。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="mb-8">
+          <h5 class="font-bold text-lg mb-4 flex items-center">
+            <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">2</span>
+            第二天：云门山大觉禅寺➡广东大峡谷➡回深
+          </h5>
+          
+          <div class="relative pl-8 border-l-2 border-primary">
+            <!-- 上午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-sun-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">上午: 云门山大觉禅寺游览</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p class="flex items-center">
+                    <i class="fa fa-car mr-1 text-primary"></i>
+                    打车约10分钟
+                  </p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>3小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>免费</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                上午游览云门山大觉禅寺，这是一座千年古刹，仿唐建筑，每一寸都感觉有精心布置。重点参观佛塔和大雄宝殿，注意入寺需要长裤、有袖着装。
+              </p>
+            </div>
+            
+            <!-- 中午 -->
+            <div class="mb-6 relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-cutlery text-xs"></i>
+              </div>
+              <h6 class="font-bold">中午: 古寺附近农庄用餐</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">推荐餐厅</p>
+                  <p>云门山农庄</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">人均消费</p>
+                  <p>约80元</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>步行</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                在古寺附近的农庄用餐，品尝当地特色农家菜，食材新鲜，味道正宗。
+              </p>
+            </div>
+            
+            <!-- 下午 -->
+            <div class="relative">
+              <div class="absolute -left-[25px] top-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center">
+                <i class="fa fa-moon-o text-xs"></i>
+              </div>
+              <h6 class="font-bold">下午: 广东大峡谷游览 → 返回深圳</h6>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">交通方式</p>
+                  <p>打车约1小时，后返回韶关站</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">游览时间</p>
+                  <p>3小时</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">预计花费</p>
+                  <p>门票约130元/人，打车约200元，高铁票约189元</p>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-600">
+                下午前往广东大峡谷游览，大峡谷是广东最大的峡谷，景色壮观。游览结束后返回韶关站，乘坐高铁返回深圳，结束愉快的韶关之旅。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 美食推荐 -->
+        <h4 class="font-bold text-xl mb-4">美食推荐</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div class="bg-gray-50 rounded-lg p-4">
+            <h5 class="font-bold mb-2">云门山商业街</h5>
+            <p class="text-gray-600">云门山门口有一条商业街，各种当地特色美食应有尽有，不用担心饿到。</p>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-4">
+            <h5 class="font-bold mb-2">当地农庄</h5>
+            <p class="text-gray-600">景区附近有很多农庄，食材新鲜，味道正宗，推荐品尝当地特色农家菜。</p>
+          </div>
+        </div>
+        
+        <!-- 景点介绍 -->
+        <h4 class="font-bold text-xl mb-4">景点介绍</h4>
+        
+        <!-- 云门山景区 -->
+        <div class="mb-6 bg-white rounded-lg p-4 shadow-md">
+          <h5 class="font-bold text-lg mb-2">云门山景区</h5>
+          <p class="text-gray-600 mb-3">
+            独立度假区，占地面积巨大，遛娃约会圣地～明星项目是索道缆车、超大瀑布、云上漂流、云上飞车！另还有亲子乐园、雪乡，玩一整天没问题！
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <h6 class="font-bold mb-1">索道缆车</h6>
+              <p class="text-sm text-gray-600">糖果色缆车超治愈！15分钟慢慢上山，沿途山水风光尽收眼底！和坐车感觉很不同</p>
+            </div>
+            <div>
+              <h6 class="font-bold mb-1">玻璃桥</h6>
+              <p class="text-sm text-gray-600">316米全透明高空玻璃桥，脚下是山景，风吹一点晃真的刺激！站在瀑布上端的角度蕞刺激！</p>
+            </div>
+            <div>
+              <h6 class="font-bold mb-1">云上飞瀑</h6>
+              <p class="text-sm text-gray-600">168米高（约50层楼）瀑布倾泻而下，站在玻璃桥上看真的很震撼！</p>
+            </div>
+            <div>
+              <h6 class="font-bold mb-1">云上漂流</h6>
+              <p class="text-sm text-gray-600">坐着小艇顺着山体滑道一路而下，超大型山体滑梯的感觉，拐弯惯性转弯刺激又安全，快乐！</p>
+            </div>
+            <div>
+              <h6 class="font-bold mb-1">云上飞车</h6>
+              <p class="text-sm text-gray-600">1.8km长轨道从山顶盘旋而下，可自控速度，穿越树林超解压！人少还可竞技，超爽！</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 云门山大觉禅寺 -->
+        <div class="mb-6 bg-white rounded-lg p-4 shadow-md">
+          <h5 class="font-bold text-lg mb-2">云门山大觉禅寺</h5>
+          <p class="text-gray-600 mb-3">
+            千年古刹，仿唐建筑，每一寸都感觉有精心布置，很少见，离云门山只10分钟车程，强推！
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <h6 class="font-bold mb-1">佛塔</h6>
+              <p class="text-sm text-gray-600">进门步行3分钟左右左手边就可以看到寺庙的标志性佛塔，亭台楼阁布置➕唐代风格的佛塔建筑，特像京都</p>
+            </div>
+            <div>
+              <h6 class="font-bold mb-1">大雄宝殿</h6>
+              <p class="text-sm text-gray-600">往寺里走一路很多长廊、亭台，搭配精致的园林景观，很特别。大雄宝殿维系了寺庙应该有的规格。但注意入寺需要长裤、有袖着装哈</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 广东大峡谷 -->
+        <div class="mb-6 bg-white rounded-lg p-4 shadow-md">
+          <h5 class="font-bold text-lg mb-2">广东大峡谷</h5>
+          <p class="text-gray-600">
+            广东最大的峡谷，景色壮观，峡谷深达300米，全长15公里。峡谷内有瀑布、溪流、奇石等景观，是徒步爱好者的天堂。
+          </p>
+        </div>
+        
+        <!-- 费用总结 -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <h4 class="font-bold text-lg mb-2">费用总结</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-600">交通费用</p>
+              <p>高铁往返: 约378元/人</p>
+              <p>市内交通: 约450元/人（含打车、景区观光车）</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">住宿餐饮</p>
+              <p>住宿: 约400元/人（两人拼房）</p>
+              <p>餐饮: 约220元/人(两天)</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">景点门票</p>
+              <p>云门山套票: 约400元/人</p>
+              <p>广东大峡谷门票: 约130元/人</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">总花费</p>
+              <p class="font-bold text-primary">约1,978元/人(两人拼房)</p>
             </div>
           </div>
         </div>
