@@ -7,21 +7,53 @@
   <!-- Tailwind CSS v3 -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Chart.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.8/chart.umd.min.js"></script>
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- 高德地图 API v2.0 -->
+  <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=52e19b1821a31c0473f5d6b385b8379c"></script>
+
   <!-- Tailwind CSS 配置 -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary: '#3b82f6', // 蓝色
-            secondary: '#f97316', // 橙色
-            accent: '#10b981', // 绿色
+            primary: '#2563eb', // 活力海蓝色
+            secondary: '#f59e0b', // 珊瑚色
+            accent: '#059669', // 青绿色
             dark: '#1e293b',
-            light: '#f8fafc'
+            light: '#f8fafc',
+            // 城市主题色
+            dongguan: '#3b82f6',
+            huizhou: '#0ea5e9',
+            zhongshan: '#f59e0b',
+            shanwei: '#ef4444',
+            foshan: '#8b5cf6',
+            zhuhai: '#06b6d4',
+            heyuan: '#84cc16',
+            qingyuan: '#f59e0b',
+            zhaoqing: '#ec4899',
+            shantou: '#f97316',
+            shaoguan: '#059669'
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'slide-in-right': 'slideInRight 0.5s ease-out',
+            'slide-in-left': 'slideInLeft 0.5s ease-out'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            slideInRight: {
+              '0%': { transform: 'translateX(100%)', opacity: '0' },
+              '100%': { transform: 'translateX(0)', opacity: '1' }
+            },
+            slideInLeft: {
+              '0%': { transform: 'translateX(-100%)', opacity: '0' },
+              '100%': { transform: 'translateX(0)', opacity: '1' }
+            }
           }
         }
       }
@@ -30,30 +62,126 @@
   
   <!-- 自定义样式 -->
   <style>
+    /* 基础样式 */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #eff6ff 0%, #fef3c7 100%);
+    }
+    
+    /* 文本阴影 */
     .text-shadow {
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
+    
+    /* 渐变覆盖层 */
     .gradient-overlay {
       background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
     }
-    /* 动画类定义 */
-    .animate-fade-in {
-      animation: fadeIn 0.8s ease-in;
+    
+    /* 高铁线路动画 */
+    @keyframes trainMove {
+      0% { stroke-dashoffset: 1000; }
+      100% { stroke-dashoffset: 0; }
     }
-    .animate-slide-up {
-      animation: slideUp 0.8s ease-out;
+    .train-line {
+      stroke-dasharray: 1000;
+      animation: trainMove 3s linear infinite;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    
+    /* 导航栏样式 */
+    .nav-sticky {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
     }
-    @keyframes slideUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    
+    /* 返回顶部按钮样式 */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 50;
+      cursor: pointer;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* 城市卡片样式 */
+    .city-card {
+      transition: all 0.3s ease;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+    .city-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* 卡片悬停效果 */
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 16px -4px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* 平滑滚动 */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* 图片懒加载 */
+    img.lazy {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    img.lazy.loaded {
+      opacity: 1;
+    }
+    
+    /* 模态框动画 */
+    .modal-enter {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    .modal-enter-active {
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 300ms, transform 300ms;
+    }
+    .modal-exit {
+      opacity: 1;
+    }
+    .modal-exit-active {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 300ms, transform 300ms;
+    }
+    
+    /* 加载动画 */
+    .loading-spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left-color: #2563eb;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="font-sans">
   <!-- 页面头部 -->
   <header class="relative h-[60vh] min-h-[500px] overflow-hidden">
     <div class="absolute inset-0">
@@ -84,6 +212,25 @@
     </div>
   </header>
 
+  <!-- 固定导航栏 -->
+  <nav class="nav-sticky bg-white shadow-md py-3">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap items-center justify-center gap-2 md:gap-4">
+        <button class="px-3 py-1 text-sm md:text-base bg-primary text-white rounded-full hover:bg-primary/90 transition-colors" onclick="showCityDetails('dongguan')">东莞</button>
+        <button class="px-3 py-1 text-sm md:text-base bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors" onclick="showCityDetails('huizhou')">惠州</button>
+        <button class="px-3 py-1 text-sm md:text-base bg-yellow-600 text-white rounded-full hover:bg-yellow-700 transition-colors" onclick="showCityDetails('zhongshan')">中山</button>
+        <button class="px-3 py-1 text-sm md:text-base bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors" onclick="showCityDetails('shanwei')">汕尾</button>
+        <button class="px-3 py-1 text-sm md:text-base bg-purple-600 text-white rounded-full hover:bg-purple-700 transition-colors" onclick="showCityDetails('foshan')">佛山</button>
+        <button class="px-3 py-1 text-sm md:text-base bg-cyan-600 text-white rounded-full hover:bg-cyan-700 transition-colors" onclick="showCityDetails('zhuhai')">珠海</button>
+        <button class="px-3 py-1 text-sm md:text-base bg-lime-600 text-white rounded-full hover:bg-lime-700 transition-colors" onclick="showCityDetails('heyuan')">河源</button>
+        <button class="px-3 py-1 text-sm md:text-base bg-amber-600 text-white rounded-full hover:bg-amber-700 transition-colors" onclick="showCityDetails('qingyuan')">清远</button>
+        <button class="px-3 py-1 text-sm md:text-base bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors" onclick="showCityDetails('zhaoqing')">肇庆</button>
+        <button class="px-3 py-1 text-sm md:text-base bg-rose-600 text-white rounded-full hover:bg-rose-700 transition-colors" onclick="showCityDetails('shantou')">汕头</button>
+        <button class="px-3 py-1 text-sm md:text-base bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-colors" onclick="showCityDetails('shaoguan')">韶关</button>
+      </div>
+    </div>
+  </nav>
+
   <!-- 主要内容 -->
   <main class="container mx-auto px-4 py-12">
     <!-- 攻略介绍 -->
@@ -101,151 +248,28 @@
         <div class="p-6">
           <h3 class="text-2xl font-bold mb-6 text-dark">深圳周边高铁可达城市概览</h3>
           
-          <!-- 深圳周边辐射旅游地图 -->
+          <!-- 深圳周边高铁辐射图（高德地图） -->
           <div class="mb-8">
-            <div class="w-full" style="height: 600px;">
-              <svg width="100%" height="100%" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-                <!-- 背景渐变 -->
-                <defs>
-                  <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#f0f9ff;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#e0f2fe;stop-opacity:1" />
-                  </linearGradient>
-                </defs>
-                
-                <!-- 背景矩形 -->
-                <rect x="0" y="0" width="800" height="600" fill="url(#bgGradient)" rx="8"/>
-                
-                <!-- 标题 -->
-                <text x="400" y="35" font-size="24" font-weight="bold" text-anchor="middle" fill="#1e293b">深圳周边城市高铁辐射图</text>
-                <text x="400" y="80" font-size="14" text-anchor="middle" fill="#64748b">高铁2小时可达城市概览</text>
-                
-                <!-- 中心（深圳） -->
-                <circle cx="400" cy="300" r="15" fill="#3b82f6" stroke="#fff" stroke-width="3"/>
-                <text x="400" y="335" font-size="18" font-weight="bold" text-anchor="middle" fill="#3b82f6">深圳</text>
-                
-                <!-- 环形刻度 -->
-                <circle cx="400" cy="300" r="80" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="3,3"/>
-                <circle cx="400" cy="300" r="160" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="3,3"/>
-                <circle cx="400" cy="300" r="240" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="3,3"/>
-                
-                <!-- 刻度标签 -->
-                <text x="400" y="215" font-size="14" font-weight="bold" text-anchor="middle" fill="#64748b">30分钟</text>
-                <text x="400" y="135" font-size="14" font-weight="bold" text-anchor="middle" fill="#64748b">60分钟</text>
-                <text x="400" y="55" font-size="14" font-weight="bold" text-anchor="middle" fill="#64748b">120分钟</text>
-                
-                <!-- 角度线 -->
-                <line x1="400" y1="300" x2="640" y2="300" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2,2"/>
-                <line x1="400" y1="300" x2="560" y2="160" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2,2"/>
-                <line x1="400" y1="300" x2="400" y2="60" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2,2"/>
-                <line x1="400" y1="300" x2="240" y2="160" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2,2"/>
-                <line x1="400" y1="300" x2="160" y2="300" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2,2"/>
-                <line x1="400" y1="300" x2="240" y2="440" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2,2"/>
-                <line x1="400" y1="300" x2="400" y2="540" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2,2"/>
-                <line x1="400" y1="300" x2="560" y2="440" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2,2"/>
-                
-                <!-- 城市位置（角度计算：每个城市间隔40度） -->
-                <!-- 东莞 -->
-                <line x1="400" y1="300" x2="500" y2="300" stroke="#3b82f6" stroke-width="3"/>
-                <circle cx="500" cy="300" r="10" fill="#3b82f6" stroke="#fff" stroke-width="2" cursor="pointer"/>
-                <text x="525" y="305" font-size="14" font-weight="bold" fill="#3b82f6">东莞 (15分钟)</text>
-                
-                <!-- 惠州 -->
-                <line x1="400" y1="300" x2="500" y2="200" stroke="#10b981" stroke-width="3"/>
-                <circle cx="500" cy="200" r="10" fill="#10b981" stroke="#fff" stroke-width="2" cursor="pointer"/>
-                <text x="525" y="195" font-size="14" font-weight="bold" fill="#10b981">惠州 (30分钟)</text>
-                
-                <!-- 中山 -->
-                <line x1="400" y1="300" x2="400" y2="180" stroke="#eab308" stroke-width="3"/>
-                <circle cx="400" cy="180" r="10" fill="#eab308" stroke="#fff" stroke-width="2" cursor="pointer"/>
-                <text x="400" y="160" font-size="14" font-weight="bold" text-anchor="middle" fill="#eab308">中山 (35分钟)</text>
-                
-                <!-- 汕尾 -->
-                <line x1="400" y1="300" x2="300" y2="200" stroke="#ef4444" stroke-width="3"/>
-                <circle cx="300" cy="200" r="10" fill="#ef4444" stroke="#fff" stroke-width="2" cursor="pointer"/>
-                <text x="275" y="195" font-size="14" font-weight="bold" text-anchor="end" fill="#ef4444">汕尾 (45分钟)</text>
-                
-                <!-- 佛山 -->
-                <line x1="400" y1="300" x2="300" y2="300" stroke="#8b5cf6" stroke-width="3"/>
-                <circle cx="300" cy="300" r="10" fill="#8b5cf6" stroke="#fff" stroke-width="2" cursor="pointer"/>
-                <text x="275" y="305" font-size="14" font-weight="bold" text-anchor="end" fill="#8b5cf6">佛山 (50分钟)</text>
-                
-                <!-- 珠海 -->
-                <line x1="400" y1="300" x2="300" y2="400" stroke="#06b6d4" stroke-width="3"/>
-                <circle cx="300" cy="400" r="10" fill="#06b6d4" stroke="#fff" stroke-width="2" cursor="pointer"/>
-                <text x="275" y="405" font-size="14" font-weight="bold" text-anchor="end" fill="#06b6d4">珠海 (60分钟)</text>
-                
-                <!-- 河源 -->
-                <line x1="400" y1="300" x2="400" y2="420" stroke="#84cc16" stroke-width="3"/>
-                <circle cx="400" cy="420" r="10" fill="#84cc16" stroke="#fff" stroke-width="2" cursor="pointer"/>
-                <text x="400" y="445" font-size="14" font-weight="bold" text-anchor="middle" fill="#84cc16">河源 (50分钟)</text>
-                
-                <!-- 清远 -->
-                <line x1="400" y1="300" x2="500" y2="400" stroke="#f59e0b" stroke-width="3"/>
-                <circle cx="500" cy="400" r="10" fill="#f59e0b" stroke="#fff" stroke-width="2" cursor="pointer"/>
-                <text x="525" y="405" font-size="14" font-weight="bold" fill="#f59e0b">清远 (57分钟)</text>
-                
-                <!-- 肇庆 -->
-                <line x1="400" y1="300" x2="330" y2="460" stroke="#ec4899" stroke-width="3"/>
-                <circle cx="330" cy="460" r="10" fill="#ec4899" stroke="#fff" stroke-width="2" cursor="pointer"/>
-                <text x="310" y="480" font-size="14" font-weight="bold" text-anchor="end" fill="#ec4899">肇庆 (73分钟)</text>
-                
-                <!-- 汕头 -->
-                <line x1="400" y1="300" x2="470" y2="480" stroke="#6366f1" stroke-width="3"/>
-                <circle cx="470" cy="480" r="10" fill="#6366f1" stroke="#fff" stroke-width="2" cursor="pointer"/>
-                <text x="495" y="485" font-size="14" font-weight="bold" fill="#6366f1">汕头 (109分钟)</text>
-                
-                <!-- 韶关 -->
-                <line x1="400" y1="300" x2="550" y2="450" stroke="#10b981" stroke-width="3"/>
-                <circle cx="550" cy="450" r="10" fill="#10b981" stroke="#fff" stroke-width="2" cursor="pointer"/>
-                <text x="575" y="455" font-size="14" font-weight="bold" fill="#10b981">韶关 (100分钟)</text>
-                
-                <!-- 图例 -->
-                <rect x="650" y="100" width="150" height="380" fill="rgba(255, 255, 255, 0.8)" stroke="#e2e8f0" stroke-width="2" rx="8"/>
-                <text x="725" y="130" font-size="16" font-weight="bold" text-anchor="middle" fill="#1e293b">城市图例</text>
-                
-                <!-- 图例项 -->
-                <rect x="670" y="160" width="12" height="12" fill="#3b82f6" rx="2"/>
-                <text x="690" y="170" font-size="12" fill="#1e293b">东莞 (15分钟)</text>
-                
-                <rect x="670" y="190" width="12" height="12" fill="#10b981" rx="2"/>
-                <text x="690" y="200" font-size="12" fill="#1e293b">惠州 (30分钟)</text>
-                
-                <rect x="670" y="220" width="12" height="12" fill="#eab308" rx="2"/>
-                <text x="690" y="230" font-size="12" fill="#1e293b">中山 (35分钟)</text>
-                
-                <rect x="670" y="250" width="12" height="12" fill="#ef4444" rx="2"/>
-                <text x="690" y="260" font-size="12" fill="#1e293b">汕尾 (45分钟)</text>
-                
-                <rect x="670" y="280" width="12" height="12" fill="#8b5cf6" rx="2"/>
-                <text x="690" y="290" font-size="12" fill="#1e293b">佛山 (50分钟)</text>
-                
-                <rect x="670" y="310" width="12" height="12" fill="#06b6d4" rx="2"/>
-                <text x="690" y="320" font-size="12" fill="#1e293b">珠海 (60分钟)</text>
-                
-                <rect x="670" y="340" width="12" height="12" fill="#84cc16" rx="2"/>
-                <text x="690" y="350" font-size="12" fill="#1e293b">河源 (50分钟)</text>
-                
-                <rect x="670" y="370" width="12" height="12" fill="#f59e0b" rx="2"/>
-                <text x="690" y="380" font-size="12" fill="#1e293b">清远 (57分钟)</text>
-                
-                <rect x="670" y="400" width="12" height="12" fill="#ec4899" rx="2"/>
-                <text x="690" y="410" font-size="12" fill="#1e293b">肇庆 (73分钟)</text>
-                
-                <rect x="670" y="430" width="12" height="12" fill="#6366f1" rx="2"/>
-                <text x="690" y="440" font-size="12" fill="#1e293b">汕头 (109分钟)</text>
-                
-                <rect x="670" y="460" width="12" height="12" fill="#10b981" rx="2"/>
-                <text x="690" y="470" font-size="12" fill="#1e293b">韶关 (100分钟)</text>
-                <text x="400" y="580" font-size="16" font-weight="500" text-anchor="middle" fill="#1e293b">详情可点击下方卡片查看！</text>
-              </svg>
+            <div id="amap-container" style="width: 100%; height: 600px; border-radius: 8px; position: relative;">
+              <!-- 加载指示器，使用绝对定位避免影响地图渲染 -->
+              <div id="map-loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; z-index: 1000;">
+                <div class="loading-spinner mr-3"></div>
+                <p class="text-gray-500">地图加载中...</p>
+              </div>
+              <!-- 错误信息，使用绝对定位 -->
+              <div id="map-error" class="hidden text-center text-red-500" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+                <i class="fa fa-exclamation-circle text-3xl mb-2"></i>
+                <p>地图加载失败，请刷新页面重试</p>
+              </div>
             </div>
           </div>
+          
+
           
           <!-- 城市卡片 -->
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             <!-- 东莞 -->
-            <div class="bg-blue-50 rounded-lg p-4 text-center cursor-pointer hover:bg-blue-100 transition-colors" onclick="showCityDetails('dongguan')">
+            <div class="city-card bg-blue-50 rounded-lg p-4 text-center cursor-pointer hover:bg-blue-100 transition-all duration-300 shadow-sm" onclick="showCityDetails('dongguan')">
               <div class="text-primary text-3xl mb-2">
                 <i class="fa fa-building"></i>
               </div>
@@ -254,7 +278,7 @@
             </div>
             
             <!-- 惠州 -->
-            <div class="bg-green-50 rounded-lg p-4 text-center cursor-pointer hover:bg-green-100 transition-colors" onclick="showCityDetails('huizhou')">
+            <div class="city-card bg-green-50 rounded-lg p-4 text-center cursor-pointer hover:bg-green-100 transition-all duration-300 shadow-sm" onclick="showCityDetails('huizhou')">
               <div class="text-green-600 text-3xl mb-2">
                 <i class="fa fa-tree"></i>
               </div>
@@ -263,7 +287,7 @@
             </div>
             
             <!-- 中山 -->
-            <div class="bg-yellow-50 rounded-lg p-4 text-center cursor-pointer hover:bg-yellow-100 transition-colors" onclick="showCityDetails('zhongshan')">
+            <div class="city-card bg-yellow-50 rounded-lg p-4 text-center cursor-pointer hover:bg-yellow-100 transition-all duration-300 shadow-sm" onclick="showCityDetails('zhongshan')">
               <div class="text-yellow-600 text-3xl mb-2">
                 <i class="fa fa-star"></i>
               </div>
@@ -272,7 +296,7 @@
             </div>
             
             <!-- 汕尾 -->
-            <div class="bg-red-50 rounded-lg p-4 text-center cursor-pointer hover:bg-red-100 transition-colors" onclick="showCityDetails('shanwei')">
+            <div class="city-card bg-red-50 rounded-lg p-4 text-center cursor-pointer hover:bg-red-100 transition-all duration-300 shadow-sm" onclick="showCityDetails('shanwei')">
               <div class="text-red-600 text-3xl mb-2">
                 <i class="fa fa-ship"></i>
               </div>
@@ -281,7 +305,7 @@
             </div>
             
             <!-- 佛山 -->
-            <div class="bg-purple-50 rounded-lg p-4 text-center cursor-pointer hover:bg-purple-100 transition-colors" onclick="showCityDetails('foshan')">
+            <div class="city-card bg-purple-50 rounded-lg p-4 text-center cursor-pointer hover:bg-purple-100 transition-all duration-300 shadow-sm" onclick="showCityDetails('foshan')">
               <div class="text-purple-600 text-3xl mb-2">
                 <i class="fa fa-building"></i>
               </div>
@@ -290,7 +314,7 @@
             </div>
             
             <!-- 珠海 -->
-            <div class="bg-cyan-50 rounded-lg p-4 text-center cursor-pointer hover:bg-cyan-100 transition-colors" onclick="showCityDetails('zhuhai')">
+            <div class="city-card bg-cyan-50 rounded-lg p-4 text-center cursor-pointer hover:bg-cyan-100 transition-all duration-300 shadow-sm" onclick="showCityDetails('zhuhai')">
               <div class="text-cyan-600 text-3xl mb-2">
                 <i class="fa fa-ship"></i>
               </div>
@@ -299,7 +323,7 @@
             </div>
             
             <!-- 河源 -->
-            <div class="bg-lime-50 rounded-lg p-4 text-center cursor-pointer hover:bg-lime-100 transition-colors" onclick="showCityDetails('heyuan')">
+            <div class="city-card bg-lime-50 rounded-lg p-4 text-center cursor-pointer hover:bg-lime-100 transition-all duration-300 shadow-sm" onclick="showCityDetails('heyuan')">
               <div class="text-lime-600 text-3xl mb-2">
                 <i class="fa fa-tree"></i>
               </div>
@@ -308,7 +332,7 @@
             </div>
             
             <!-- 清远 -->
-            <div class="bg-amber-50 rounded-lg p-4 text-center cursor-pointer hover:bg-amber-100 transition-colors" onclick="showCityDetails('qingyuan')">
+            <div class="city-card bg-amber-50 rounded-lg p-4 text-center cursor-pointer hover:bg-amber-100 transition-all duration-300 shadow-sm" onclick="showCityDetails('qingyuan')">
               <div class="text-amber-600 text-3xl mb-2">
                 <i class="fa fa-tree"></i>
               </div>
@@ -317,7 +341,7 @@
             </div>
             
             <!-- 肇庆 -->
-            <div class="bg-indigo-50 rounded-lg p-4 text-center cursor-pointer hover:bg-indigo-100 transition-colors" onclick="showCityDetails('zhaoqing')">
+            <div class="city-card bg-indigo-50 rounded-lg p-4 text-center cursor-pointer hover:bg-indigo-100 transition-all duration-300 shadow-sm" onclick="showCityDetails('zhaoqing')">
               <div class="text-indigo-600 text-3xl mb-2">
                 <i class="fa fa-building"></i>
               </div>
@@ -326,7 +350,7 @@
             </div>
             
             <!-- 汕头 -->
-            <div class="bg-rose-50 rounded-lg p-4 text-center cursor-pointer hover:bg-rose-100 transition-colors" onclick="showCityDetails('shantou')">
+            <div class="city-card bg-rose-50 rounded-lg p-4 text-center cursor-pointer hover:bg-rose-100 transition-all duration-300 shadow-sm" onclick="showCityDetails('shantou')">
               <div class="text-rose-600 text-3xl mb-2">
                 <i class="fa fa-cutlery"></i>
               </div>
@@ -335,7 +359,7 @@
             </div>
             
             <!-- 韶关 -->
-            <div class="bg-emerald-50 rounded-lg p-4 text-center cursor-pointer hover:bg-emerald-100 transition-colors" onclick="showCityDetails('shaoguan')">
+            <div class="city-card bg-emerald-50 rounded-lg p-4 text-center cursor-pointer hover:bg-emerald-100 transition-all duration-300 shadow-sm" onclick="showCityDetails('shaoguan')">
               <div class="text-emerald-600 text-3xl mb-2">
                 <i class="fa fa-building"></i>
               </div>
@@ -4431,8 +4455,260 @@
     </div>
   </footer>
 
+  <!-- 返回顶部按钮 -->
+  <div class="back-to-top bg-primary text-white rounded-full p-3 shadow-lg hover:bg-primary/90 transition-all duration-300">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
   <!-- JavaScript -->
   <script>
+    // 城市数据配置
+    const cities = {
+      shenzhen: {
+        name: '深圳',
+        color: '#3b82f6',
+        time: '0分钟',
+        coordinates: [114.057868, 22.543099] // 深圳北站坐标
+      },
+      dongguan: {
+        name: '东莞',
+        color: '#3b82f6',
+        time: '15分钟',
+        coordinates: [113.858306, 22.943144] // 东莞南站坐标
+      },
+      huizhou: {
+        name: '惠州',
+        color: '#0ea5e9',
+        time: '30分钟',
+        coordinates: [114.796727, 22.955399] // 惠东南站坐标
+      },
+      zhongshan: {
+        name: '中山',
+        color: '#f59e0b',
+        time: '35分钟',
+        coordinates: [113.382487, 22.521084] // 中山站坐标
+      },
+      shanwei: {
+        name: '汕尾',
+        color: '#ef4444',
+        time: '45分钟',
+        coordinates: [115.370835, 22.771165] // 汕尾站坐标
+      },
+      foshan: {
+        name: '佛山',
+        color: '#8b5cf6',
+        time: '50分钟',
+        coordinates: [113.125189, 23.02415] // 佛山站坐标
+      },
+      zhuhai: {
+        name: '珠海',
+        color: '#06b6d4',
+        time: '60分钟',
+        coordinates: [113.561799, 22.277555] // 珠海站坐标
+      },
+      heyuan: {
+        name: '河源',
+        color: '#84cc16',
+        time: '50分钟',
+        coordinates: [114.686886, 23.732537] // 河源东站坐标
+      },
+      qingyuan: {
+        name: '清远',
+        color: '#f59e0b',
+        time: '57分钟',
+        coordinates: [113.028245, 23.705036] // 清远站坐标
+      },
+      zhaoqing: {
+        name: '肇庆',
+        color: '#ec4899',
+        time: '73分钟',
+        coordinates: [112.476428, 23.044651] // 肇庆东站坐标
+      },
+      shantou: {
+        name: '汕头',
+        color: '#f97316',
+        time: '109分钟',
+        coordinates: [116.694897, 23.355274] // 汕头站坐标
+      },
+      shaoguan: {
+        name: '韶关',
+        color: '#059669',
+        time: '100分钟',
+        coordinates: [113.609002, 24.819021] // 韶关站坐标
+      }
+    };
+
+    // 初始化高德地图
+    let map;
+    let markers = {};
+    let polylines = [];
+
+    // 先显示地图底图，再添加覆盖物
+    function initMap() {
+      try {
+        // 隐藏错误信息
+        document.getElementById('map-error').classList.add('hidden');
+        
+        console.log('开始初始化地图...');
+        
+        // 1. 先创建地图实例，只显示底图
+        map = new AMap.Map('amap-container', {
+          center: cities.shenzhen.coordinates,
+          zoom: 8,
+          resizeEnable: true,
+          // 使用1.4.15版本的默认配置，确保兼容性
+          viewMode: '2D',
+          // 显式添加地图图层
+          layers: [
+            new AMap.TileLayer()
+          ]
+        });
+        
+        console.log('地图实例创建成功');
+        
+        // 2. 地图加载完成事件
+        map.on('complete', function() {
+          console.log('地图底图加载完成');
+          
+          // 隐藏加载指示器
+          document.getElementById('map-loading').style.display = 'none';
+          
+          // 3. 底图加载完成后，再添加覆盖物
+        setTimeout(function() {
+          console.log('开始添加覆盖物...');
+          
+          // 添加深圳中心点标记
+          addCityMarker('shenzhen');
+          
+          // 添加周边城市标记
+          Object.keys(cities).forEach(cityKey => {
+            if (cityKey !== 'shenzhen') {
+              addCityMarker(cityKey);
+              drawTrainLine('shenzhen', cityKey);
+            }
+          });
+          
+          // 添加地图控件
+          map.addControl(new AMap.ZoomControl());
+          map.addControl(new AMap.ScaleControl());
+          
+          console.log('所有覆盖物添加完成');
+        }, 100);
+        });
+        
+        // 地图加载失败事件
+        map.on('error', function(error) {
+          console.error('地图加载失败:', error);
+          document.getElementById('map-loading').style.display = 'none';
+          document.getElementById('map-error').style.display = 'block';
+        });
+        
+        // 超时处理，防止地图加载卡死
+        setTimeout(function() {
+          if (document.getElementById('map-loading').style.display !== 'none') {
+            console.log('地图加载超时，强制显示地图');
+            document.getElementById('map-loading').style.display = 'none';
+            
+            // 尝试手动添加覆盖物
+            if (map) {
+              addCityMarker('shenzhen');
+              Object.keys(cities).forEach(cityKey => {
+                if (cityKey !== 'shenzhen') {
+                  addCityMarker(cityKey);
+                  drawTrainLine('shenzhen', cityKey);
+                }
+              });
+            }
+          }
+        }, 5000);
+      } catch (error) {
+        console.error('地图初始化失败:', error);
+        document.getElementById('map-loading').style.display = 'none';
+        document.getElementById('map-error').style.display = 'block';
+      }
+    }
+
+    // 添加城市标记
+    function addCityMarker(cityKey) {
+      const city = cities[cityKey];
+      
+      // 创建自定义标记
+      const markerContent = document.createElement('div');
+      markerContent.style.cssText = `
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      `;
+      markerContent.innerHTML = `
+        <div style="width: 30px; height: 30px; border-radius: 50%; background-color: ${city.color}; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
+          <i class="fa fa-train" style="color: white; font-size: 16px;"></i>
+        </div>
+        <div style="margin-top: 5px; background-color: white; padding: 2px 8px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); font-size: 12px; font-weight: bold; color: ${city.color};">
+          ${city.name}
+        </div>
+        <div style="margin-top: 2px; font-size: 10px; color: #666;">
+          ${city.time}
+        </div>
+      `;
+
+      // 创建标记
+      const marker = new AMap.Marker({
+        position: city.coordinates,
+        content: markerContent,
+        offset: new AMap.Pixel(-40, -60)
+      });
+
+      // 添加点击事件
+      marker.on('click', () => {
+        showCityDetails(cityKey);
+      });
+
+      // 添加到地图
+      map.add(marker);
+      markers[cityKey] = marker;
+    }
+
+    // 绘制高铁线路
+    function drawTrainLine(fromCityKey, toCityKey) {
+      const fromCity = cities[fromCityKey];
+      const toCity = cities[toCityKey];
+
+      // 创建线条
+      const polyline = new AMap.Polyline({
+        path: [fromCity.coordinates, toCity.coordinates],
+        strokeColor: toCity.color,
+        strokeWeight: 4,
+        strokeOpacity: 0.8,
+        strokeStyle: 'solid',
+        lineJoin: 'round',
+        lineCap: 'round'
+      });
+
+      // 添加到地图
+      map.add(polyline);
+      polylines.push(polyline);
+
+      // 添加线条动画效果
+      addLineAnimation(polyline);
+    }
+
+    // 添加线条动画效果
+    function addLineAnimation(polyline) {
+      // 使用简单的闪烁效果，适配高德地图API v2.0
+      let opacity = 0.8;
+      setInterval(() => {
+        opacity = opacity > 0.4 ? 0.4 : 0.8;
+        // 使用setOptions方法更新线条属性
+        polyline.setOptions({
+          strokeOpacity: opacity
+        });
+      }, 1500);
+    }
+
+    // 辐射圈功能已被移除，如需恢复请取消注释相关代码
+
     // 显示城市详情
     function showCityDetails(cityId) {
       // 隐藏所有城市详情
@@ -4448,22 +4724,47 @@
         
         // 平滑滚动到城市详情区域
         selectedCityDetail.scrollIntoView({ behavior: 'smooth' });
+        
+        // 在地图上高亮对应的城市标记
+        if (markers[cityId]) {
+          map.setCenter(cities[cityId].coordinates);
+          map.setZoom(10);
+        }
       }
     }
 
     // 页面加载完成后初始化
     document.addEventListener('DOMContentLoaded', function() {
-
+      // 初始化高德地图
+      initMap();
+      
+      // 返回顶部按钮功能
+      const backToTopBtn = document.querySelector('.back-to-top');
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      });
+      
+      backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
       
       // 添加页面滚动动画
       const animateOnScroll = function() {
-        const elements = document.querySelectorAll('.city-details, .bg-white.p-6.rounded-lg.shadow-md');
+        const elements = document.querySelectorAll('.city-details, .bg-white.rounded-lg.shadow-md, .bg-blue-50.rounded-lg, .bg-gray-50.rounded-lg, .city-card');
         
         elements.forEach(element => {
           const elementPosition = element.getBoundingClientRect().top;
           const windowHeight = window.innerHeight;
           
-          if (elementPosition < windowHeight * 0.85) {
+          if (elementPosition < windowHeight * 0.85 && !element.classList.contains('animate-fade-in')) {
             element.classList.add('animate-fade-in');
           }
         });
@@ -4474,6 +4775,15 @@
       
       // 滚动时检查
       window.addEventListener('scroll', animateOnScroll);
+      
+      // 为导航按钮添加active状态
+      const navButtons = document.querySelectorAll('.nav-sticky button');
+      navButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          navButtons.forEach(btn => btn.classList.remove('active', 'ring-2', 'ring-offset-2'));
+          this.classList.add('active', 'ring-2', 'ring-offset-2', 'ring-primary');
+        });
+      });
     });
   </script>
 </body>
